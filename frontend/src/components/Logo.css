@@ -1,0 +1,89 @@
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+/* Header logo styling */
+.header-logo .logo-container {
+  margin-bottom: 0;
+  justify-content: flex-start;
+}
+
+.logo-image {
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+}
+
+.logo-text-fallback {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.logo-line-1 {
+  font-size: 42px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #2563eb;
+  letter-spacing: 1px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.logo-line-2 {
+  font-size: 42px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #2563eb;
+  letter-spacing: 1px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.logo-line-2 .bold-text {
+  font-weight: bold;
+}
+
+.logo-line-2 .small-text {
+  font-size: 28px;
+  font-weight: normal;
+  color: #000;
+  text-transform: lowercase;
+  vertical-align: baseline;
+}
+
+.logo-line-3 {
+  font-size: 18px;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: #000;
+  letter-spacing: 0.5px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .logo-image {
+    max-width: 350px;
+  }
+  
+  .logo-text-fallback {
+    text-align: center;
+    align-items: center;
+  }
+  
+  .logo-line-1,
+  .logo-line-2 {
+    font-size: 32px;
+  }
+  
+  .logo-line-2 .small-text {
+    font-size: 22px;
+  }
+  
+  .logo-line-3 {
+    font-size: 16px;
+  }
+}

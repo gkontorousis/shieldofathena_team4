@@ -1,0 +1,50 @@
+.pixelated-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0;
+}
+
+.pixelated-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pixelated-image {
+  position: relative;
+  border: 4px solid rgba(37, 99, 235, 0.2);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  background: white;
+  padding: 4px;
+}
+
+.pixel {
+  position: absolute;
+  transition: background-color 0.5s ease, transform 0.3s ease;
+}
+
+.pixel:hover {
+  transform: scale(1.2);
+  z-index: 10;
+}
+
+.pixel-progress {
+  margin-top: 35px;
+  font-size: 18px;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.pixel-progress p {
+  margin: 12px 0;
+  text-align: center;
+}
+
+.pixel-encouragement {
+  font-weight: 700;
+  color: #2563eb;
+  font-size: 22px;
+}
