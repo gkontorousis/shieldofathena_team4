@@ -6,6 +6,8 @@ import './LandingPage.css';
 import PixelatedImage from '../components/PixelatedImage';
 import AchievementsSection from '../components/AchievementsSection';
 import Logo from '../components/Logo';
+import ThisMonthsImpact from "../components/ThisMonthsImpact";
+
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -62,6 +64,11 @@ function LandingPage() {
           </p>
         </div>
       </section>
+      
+      <ThisMonthsImpact
+        nightsFunded={63}
+        goalNights={100}
+      />
 
       <section className="pixelated-section">
         <div className="pixelated-content">
