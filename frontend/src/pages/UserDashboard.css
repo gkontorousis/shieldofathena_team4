@@ -1,0 +1,289 @@
+.user-dashboard {
+  min-height: 100vh;
+  background: #ffffff;
+  padding: 60px 20px;
+  position: relative;
+}
+
+.dashboard-header {
+  max-width: 1200px;
+  margin: 0 auto 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-header h1 {
+  color: #1a1a1a;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.donate-btn {
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+}
+
+.donate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+}
+
+.logout-btn {
+  padding: 14px 28px;
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  border: 2px solid rgba(37, 99, 235, 0.2);
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.logout-btn:hover {
+  background: rgba(37, 99, 235, 0.15);
+  transform: translateY(-2px);
+}
+
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 50px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.dashboard-section h2 {
+  color: #1a1a1a;
+  font-size: 32px;
+  margin-bottom: 35px;
+  border-bottom: 3px solid rgba(37, 99, 235, 0.2);
+  padding-bottom: 15px;
+  font-weight: 700;
+}
+
+.total-donated {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  margin-bottom: 35px;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+}
+
+.total-donated h3 {
+  font-size: 36px;
+  margin: 0;
+  font-weight: 700;
+}
+
+.donations-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.donation-item {
+  display: flex;
+  gap: 25px;
+  padding: 28px;
+  background: rgba(37, 99, 235, 0.03);
+  border-radius: 16px;
+  border-left: 4px solid #2563eb;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.donation-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.donation-visual {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.donation-visual img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.donation-amount {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+}
+
+.donation-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.donation-impact {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.donation-date {
+  color: #2563eb;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.recurring-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  width: fit-content;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+.no-data {
+  text-align: center;
+  color: #2563eb;
+  font-size: 18px;
+  padding: 60px;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.event-card {
+  border: 2px solid rgba(37, 99, 235, 0.15);
+  border-radius: 20px;
+  padding: 30px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.event-card:hover {
+  border-color: #2563eb;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15);
+  transform: translateY(-4px);
+}
+
+.event-card h3 {
+  color: #1a1a1a;
+  font-size: 24px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(37, 99, 235, 0.1);
+  padding-bottom: 15px;
+  font-weight: 700;
+}
+
+.event-details p {
+  margin-bottom: 12px;
+  color: #4a5568;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.event-details strong {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.register-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+}
+
+.register-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+}
+
+.register-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.updates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.update-card {
+  background: rgba(37, 99, 235, 0.03);
+  border-radius: 16px;
+  padding: 28px;
+  border-left: 4px solid #2563eb;
+  border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.update-date {
+  color: #2563eb;
+  font-size: 14px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.update-message {
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 0;
+}
