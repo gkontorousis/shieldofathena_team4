@@ -2,9 +2,7 @@ import React from 'react';
 import './Logo.css';
 
 function Logo() {
-  // Replace this path with your actual logo image path
-  // You can place the logo in: frontend/public/logo.png or frontend/src/assets/logo.png
-  const logoPath = '/logo.png'; // Update this path to match where you place the logo file
+  const logoPath = '/logo.png';
   
   return (
     <div className="logo-container">
@@ -13,7 +11,6 @@ function Logo() {
         alt="Shield of Athena Logo" 
         className="logo-image"
         onError={(e) => {
-          // Fallback if image doesn't exist - show text logo
           e.target.style.display = 'none';
           e.target.nextSibling.style.display = 'flex';
         }}
