@@ -57,11 +57,8 @@ function LandingPage() {
           <Logo />
           <h2>Our Mission</h2>
           <p>
-            Shield of Athena is dedicated to providing support and assistance to
-            individuals and families facing difficult circumstances. We believe
-            that everyone deserves dignity, hope, and the opportunity to rebuild
-            their lives. Through community support and compassionate action, we
-            work to create lasting positive change.
+            Shield of Athena supports women and children affected by conjugal and family violence, providing shelter, multilingual services, and
+            outreach. Donor support is essential to sustaining these programs.
           </p>
         </div>
       </section>
