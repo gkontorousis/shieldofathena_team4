@@ -23,8 +23,22 @@
   margin: 0 auto;
   padding: 20px 40px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo .logo-container {
+  max-width: 300px;
+}
+
+.header-logo .logo-image {
+  max-width: 300px !important;
+  height: auto;
 }
 
 .header-actions {
@@ -129,8 +143,12 @@
     flex-wrap: wrap;
   }
   
+  .header-logo .logo-container {
+    max-width: 200px;
+  }
+  
   .header-logo .logo-image {
-    max-width: 150px;
+    max-width: 200px !important;
   }
   
   .header-actions {
@@ -153,6 +171,14 @@
     padding: 12px 15px;
   }
   
+  .header-logo .logo-container {
+    max-width: 150px;
+  }
+  
+  .header-logo .logo-image {
+    max-width: 150px !important;
+  }
+  
   .header-login-btn {
     padding: 6px 12px;
     font-size: 12px;
@@ -168,9 +194,11 @@
   width: 100%;
   height: 100vh;
   position: relative;
-  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  background: linear-gradient(135deg, #f5f3f8 0%, #faf9fc 100%);
   overflow: hidden;
   margin-top: 80px;
+  padding: 5.5% 1.5%;
+  box-sizing: border-box;
   animation: fadeIn 1s ease-out;
 }
 
@@ -191,17 +219,57 @@
   right: 0;
   bottom: 0;
   background: 
-    radial-gradient(circle at 30% 30%, rgba(164, 147, 181, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 70% 70%, rgba(184, 169, 199, 0.2) 0%, transparent 50%);
+    radial-gradient(circle at 30% 30%, rgba(164, 147, 181, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(184, 169, 199, 0.08) 0%, transparent 50%);
   pointer-events: none;
   z-index: 1;
 }
 
+.video-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0) 85%, rgba(255, 255, 255, 1) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
 .video-container {
-  width: 100%;
+  width: 97%;
+  max-width: 1300px;
   height: 100%;
   position: relative;
-  z-index: 2;
+  z-index: 3;
+  margin: 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(164, 147, 181, 0.2);
+}
+
+@media (max-width: 768px) {
+  .video-section {
+    padding: 5% 2%;
+  }
+  
+  .video-container {
+    width: 97%;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-section {
+    padding: 5% 1.5%;
+  }
+  
+  .video-container {
+    width: 98%;
+    border-radius: 18px;
+  }
 }
 
 .video-captions {

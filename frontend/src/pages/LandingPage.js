@@ -17,6 +17,9 @@ function LandingPage() {
     <div className="landing-page">
       <header className="landing-header">
         <div className="header-content">
+          <div className="header-logo">
+            <Logo />
+          </div>
           <div className="header-actions">
             <button
               className="header-login-btn"
