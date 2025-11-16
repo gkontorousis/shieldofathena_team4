@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { createDonation } from '../services/firestore';
+import PaymentForm from '../components/PaymentForm';
 import './DonationPage.css';
 
 function DonationPage() {
@@ -10,6 +11,7 @@ function DonationPage() {
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState('');
   const [recurring, setRecurring] = useState(false);
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -46,7 +48,7 @@ function DonationPage() {
     },
   ];
 
-  const handleDonate = async () => {
+  const handleDonate = () => {
     const amount = selectedAmount || parseFloat(customAmount);
     
     if (!amount || amount <= 0) {
@@ -54,13 +56,24 @@ function DonationPage() {
       return;
     }
 
+    setError('');
+    setShowPaymentForm(true);
+  };
+
+  const handlePaymentSubmit = async (paymentData) => {
     setLoading(true);
     setError('');
 
     try {
-      await createDonation(user?.uid || null, amount, recurring);
+      // TODO: Integrate with actual payment processor (Stripe, PayPal, etc.)
+      // For now, we'll simulate payment processing
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
+      
+      // After successful payment, create donation record
+      await createDonation(user?.uid || null, paymentData.amount, recurring);
 
       // Navigate to thank you page with donation details
+      const amount = selectedAmount || parseFloat(customAmount);
       navigate('/thank-you', {
         state: {
           donation: {
@@ -73,10 +86,40 @@ function DonationPage() {
         },
       });
     } catch (err) {
-      setError(err.message || 'Donation failed. Please try again.');
+      setError(err.message || 'Payment failed. Please try again.');
       setLoading(false);
     }
   };
+
+  const handlePaymentCancel = () => {
+    setShowPaymentForm(false);
+    setError('');
+  };
+
+  const amount = selectedAmount || parseFloat(customAmount);
+  const donationDescription = selectedAmount
+    ? donationAmounts.find((d) => d.amount === selectedAmount)?.description
+    : amount ? `A donation of $${amount}` : '';
+
+  if (showPaymentForm && amount > 0) {
+    return (
+      <div className="donation-page">
+        <div className="donation-container payment-container">
+          <PaymentForm
+            amount={amount}
+            title="Complete Your Donation"
+            description={donationDescription}
+            onSubmit={handlePaymentSubmit}
+            onCancel={handlePaymentCancel}
+            loading={loading}
+            error={error}
+            showBillingInfo={true}
+            paymentType="donation"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="donation-page">
@@ -177,9 +220,9 @@ function DonationPage() {
           <button
             className="donate-button"
             onClick={handleDonate}
-            disabled={loading}
+            disabled={loading || !amount || amount <= 0}
           >
-            {loading ? 'Processing...' : 'Donate Now'}
+            {loading ? 'Processing...' : 'Continue to Payment'}
           </button>
         </div>
       </div>
