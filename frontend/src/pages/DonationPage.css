@@ -169,11 +169,14 @@
 .amount-card {
   border: 2px solid rgba(164, 147, 181, 0.15);
   border-radius: 16px;
-  padding: 28px;
+  padding: 0;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
   background: white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .amount-card:hover {
@@ -188,17 +191,26 @@
   box-shadow: 0 4px 20px rgba(164, 147, 181, 0.2);
 }
 
+.amount-card-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
 .amount-value {
   font-size: 36px;
   font-weight: 700;
   color: #a493b5;
-  margin-bottom: 12px;
+  margin: 20px 0 12px;
+  padding: 0 28px;
 }
 
 .amount-description {
   font-size: 14px;
   color: #4a5568;
   line-height: 1.6;
+  padding: 0 28px 28px;
 }
 
 .custom-amount-section {
