@@ -16,31 +16,33 @@ function DonationPage() {
   const donationAmounts = [
     {
       amount: 10,
-      description: 'A donation of $10 would buy a meal for a homeless person',
+      description: 'A donation of $10 would buy a meal for women and children',
+      image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&fit=crop',
     },
     {
       amount: 25,
-      description: 'A donation of $25 would buy a blanket for a homeless person',
+      description: 'A donation of $25 would buy clothing for women and children',
+      image: 'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400&fit=crop',
     },
     {
       amount: 50,
       description: 'A donation of $50 would provide a week of groceries for a family',
+      image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&fit=crop',
     },
     {
       amount: 100,
       description: 'A donation of $100 would help cover utility bills for a month',
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&fit=crop',
     },
     {
       amount: 250,
       description: 'A donation of $250 would provide emergency housing assistance',
+      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&fit=crop',
     },
     {
       amount: 500,
       description: 'A donation of $500 would support educational programs for children',
-    },
-    {
-      amount: 1000,
-      description: 'A donation of $1000 would fund comprehensive support for a family',
+      image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&fit=crop',
     },
   ];
 
@@ -89,7 +91,7 @@ function DonationPage() {
             <h3>Benefits of Creating an Account</h3>
             <div className="benefit-item">
               <img
-                src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=200"
+                src="/kids_drawing.jpg"
                 alt="Child's drawing"
                 className="benefit-image"
               />
@@ -99,6 +101,11 @@ function DonationPage() {
               </p>
             </div>
             <div className="benefit-item">
+              <img
+                src="/dinner_table.jpg"
+                alt="Donor community event"
+                className="benefit-image"
+              />
               <p>
                 <strong>Donor community / fundraising events</strong> where you can
                 socialize and meet like-minded people (restaurant nights, hikes, etc.)
@@ -125,6 +132,11 @@ function DonationPage() {
                   setCustomAmount('');
                 }}
               >
+                <img
+                  src={item.image}
+                  alt={item.description}
+                  className="amount-card-image"
+                />
                 <div className="amount-value">${item.amount}</div>
                 <div className="amount-description">{item.description}</div>
               </div>
