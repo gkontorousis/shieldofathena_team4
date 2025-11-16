@@ -1,6 +1,5 @@
 import React from "react";
 import MosaicFrame from "./MosaicFrame";
-import "../css/base.css";
 import "../css/embla.css";
 import "../css/mosaic-custom.css";
 
@@ -14,6 +13,8 @@ const OPTIONS = {
 // Define your 5 images here - All from Unsplash (free to use)
 const SLIDES = [
   {
+    pixelwidth: 10,
+    pixelheight: 10,
     name: "Strength & Unity",
     url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=800&fit=crop&q=80", // Women supporting each other
   },

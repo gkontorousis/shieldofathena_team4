@@ -218,11 +218,6 @@ const MosaicFrame = (props) => {
               canvasRefs.current[index] = el;
             }
           }}
-          style={{
-            display: "block",
-            maxWidth: "100%",
-            height: "auto",
-          }}
         />
 
         <div className="pixel-progress-overlay">
@@ -240,57 +235,22 @@ const MosaicFrame = (props) => {
   return (
     <section className="embla">
       {/* Total Progress Bar */}
-      <div
-        style={{
-          marginBottom: "30px",
-          textAlign: "center",
-          padding: "0 20px",
-        }}
-      >
-        <h3
-          style={{
-            fontSize: "24px",
-            marginBottom: "12px",
-            color: "#a493b5",
-            fontWeight: "600",
-          }}
-        >
-          Total Progress: ${totalDonations.toLocaleString()}
-        </h3>
-        <div
-          style={{
-            width: "100%",
-            maxWidth: "600px",
-            height: "12px",
-            background: "#e0e0e0",
-            borderRadius: "6px",
-            overflow: "hidden",
-            margin: "0 auto",
-            position: "relative",
-          }}
-        >
+      <div className="embla-progress">
+        <h3>Total Progress: ${totalDonations.toLocaleString()}</h3>
+        <div className="embla-progress-bar">
           <div
+            className="embla-progress-bar-fill"
             style={{
-              height: "100%",
-              background: "linear-gradient(90deg, #a493b5, #b8a9c7)",
               width: `${Math.min(
                 (totalDonations /
                   (TOTAL_COST_PER_IMAGE * Math.max(slides.length, 1))) *
                   100,
                 100
               )}%`,
-              transition: "width 0.5s ease",
-              borderRadius: "6px",
             }}
           />
         </div>
-        <p
-          style={{
-            marginTop: "8px",
-            fontSize: "14px",
-            color: "#666",
-          }}
-        >
+        <p>
           Image{" "}
           {Math.min(
             Math.floor(totalDonations / TOTAL_COST_PER_IMAGE) + 1,
@@ -301,42 +261,18 @@ const MosaicFrame = (props) => {
       </div>
 
       {/* Slider */}
-      <div className="embla__viewport" ref={emblaRef}>
-        <div className="embla__container">
+      <div className="embla-viewport" ref={emblaRef}>
+        <div className="embla-container">
           {processedImages.map((slide, index) => (
-            <div className="embla__slide" key={slide.name}>
-              <div
-                style={{
-                  padding: "40px 20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "20px",
-                }}
-              >
-                <h4
-                  style={{
-                    fontSize: "20px",
-                    color: "#333",
-                    fontWeight: "600",
-                    textAlign: "center",
-                  }}
-                >
-                  {slide.name}
-                </h4>
+            <div className="embla-slide" key={slide.name}>
+              <div className="embla-slide-content">
+                <h4>{slide.name}</h4>
 
                 {renderBlurMosaicCanvas(slide, index)}
 
                 {/* CTA text */}
                 {getPixelsRevealedForSlide(index) < PIXELS_PER_IMAGE && (
-                  <p
-                    style={{
-                      fontSize: "16px",
-                      color: "#666",
-                      textAlign: "center",
-                      maxWidth: "400px",
-                    }}
-                  >
+                  <p className="embla-slide-content-incompleted">
                     Donate $
                     {TOTAL_COST_PER_IMAGE -
                       getPixelsRevealedForSlide(index) * COST_PER_PIXEL}{" "}
@@ -345,14 +281,7 @@ const MosaicFrame = (props) => {
                 )}
 
                 {getPixelsRevealedForSlide(index) === PIXELS_PER_IMAGE && (
-                  <p
-                    style={{
-                      fontSize: "18px",
-                      color: "#a493b5",
-                      fontWeight: "600",
-                      textAlign: "center",
-                    }}
-                  >
+                  <p className="embla-slide-content-completed">
                     Image Complete! Thank you!
                   </p>
                 )}
@@ -363,19 +292,19 @@ const MosaicFrame = (props) => {
       </div>
 
       {/* Controls */}
-      <div className="embla__controls">
-        <div className="embla__buttons">
+      <div className="embla-controls">
+        <div className="embla-buttons">
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
 
-        <div className="embla__dots">
+        <div className="embla-dots">
           {scrollSnaps.map((_, index) => (
             <DotButton
               key={index}
               onClick={() => onDotButtonClick(index)}
-              className={"embla__dot".concat(
-                index === selectedIndex ? " embla__dot--selected" : ""
+              className={"embla-dot".concat(
+                index === selectedIndex ? " embla-dot-selected" : ""
               )}
             />
           ))}
