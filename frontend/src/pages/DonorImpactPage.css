@@ -1,0 +1,208 @@
+
+.donor-impact-page {
+  min-height: 100vh;
+  padding: 3rem 1.5rem 4rem;
+  background: radial-gradient(circle at top left, #f4f5ff 0, #ffffff 50%);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #111827;
+}
+
+.impact-header {
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.impact-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.impact-header p {
+  font-size: 1rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.impact-amount {
+  font-weight: 700;
+  color: #5a5e8a;
+}
+
+.impact-summary {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.impact-summary-card {
+  background: #f5f6fb;
+  border-radius: 18px;
+  padding: 1.5rem 2rem;
+  max-width: 520px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.impact-summary-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.impact-summary-number {
+  font-size: 2.2rem;
+  margin: 0.25rem 0;
+  color: #7478aa;
+  font-weight: 700;
+}
+
+.impact-summary-text {
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+.impact-carousel {
+  max-width: 960px;
+  margin: 0 auto 3rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.impact-carousel-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.6s ease;
+}
+
+.impact-card {
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.25rem 1.4rem;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+@media (max-width: 639px) {
+  .impact-card {
+    flex: 0 0 100%;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .impact-card {
+    flex: 0 0 50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .impact-card {
+    flex: 0 0 calc(100% / 3);
+  }
+}
+
+.impact-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.impact-number {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #5a5e8a;
+  margin: 0.25rem 0;
+}
+
+.impact-description {
+  font-size: 0.9rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.impact-photo {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 0.7rem;
+}
+
+.impact-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.impact-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: none;
+  background: #d4d6e7;
+  cursor: pointer;
+  padding: 0;
+}
+
+.impact-dot-active {
+  width: 22px;
+  background: #7478aa;
+}
+
+.impact-cta {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.impact-cta h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.impact-cta p {
+  font-size: 0.95rem;
+  color: #4b5563;
+  margin-bottom: 1.25rem;
+}
+
+.impact-donate-btn {
+  padding: 0.8rem 1.8rem;
+  border-radius: 999px;
+  border: none;
+  background: #7478aa;
+  color: white;
+  font-weight: 600;
+  font-size: 0.98rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(90, 94, 138, 0.4);
+  margin-right: 0.5rem;
+}
+
+.impact-donate-btn:hover {
+  background: #5a5e8a;
+}
+
+.back-dashboard-btn {
+  margin-top: 1rem;
+  background: transparent;
+  border: 2px solid #7478aa;
+  color: #7478aa;
+  padding: 0.5rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.25s ease;
+  margin-left: 0.5rem;
+}
+
+.back-dashboard-btn:hover {
+  background: #7478aa;
+  color: white;
+}
