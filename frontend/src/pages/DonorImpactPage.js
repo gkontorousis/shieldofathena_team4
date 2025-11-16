@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./DonorImpactPage.css";
 import { useNavigate } from "react-router-dom";
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const COSTS = {
   shelterNight: 35,
@@ -101,6 +102,7 @@ function DonorImpactPage({ totalDonation = 300 }) {
 
   return (
     <>
+    <Header />
     <div className="donor-impact-page">
       <header className="impact-header">
         <h1>Your Impact This Month</h1>
