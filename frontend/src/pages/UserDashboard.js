@@ -55,7 +55,7 @@ function UserDashboard() {
       fetchDonations();
       fetchEvents();
     }
-  }, [user, fetchUserData, fetchDonations, fetchEvents]);
+  }, [user]);
 
 
   const handleEventRegister = async (eventId, eventPrice) => {
