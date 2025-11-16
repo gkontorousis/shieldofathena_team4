@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations/translations';
 import './AchievementsSection.css';
 
 function AchievementsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
 
-  const achievements = [
+  const achievements = useMemo(() => [
     {
-      month: 'October 2025',
-      description: 'Launched multilingual counseling services and provided emergency shelter to 20 women and their children fleeing domestic violence.',
+      month: t.october2025,
+      description: t.achievement1Desc,
       images: [
         '/pic1.png',
         '/pic2.png',
@@ -18,16 +22,16 @@ function AchievementsSection() {
         donors: 95,
         medianDonation: 58,
         breakdown: [
-          { category: 'Emergency Shelter', amount: 2000 },
-          { category: 'Food & Meals', amount: 1500 },
-          { category: 'Counseling Services', amount: 1200 },
-          { category: 'Transportation', amount: 800 },
+          { category: t.emergencyShelter, amount: 2000 },
+          { category: t.foodMeals, amount: 1500 },
+          { category: t.counselingServices, amount: 1200 },
+          { category: t.transportation, amount: 800 },
         ],
       },
     },
     {
-      month: 'September 2025',
-      description: 'Conducted community outreach programs and provided legal assistance to 25 women navigating protection orders and custody cases.',
+      month: t.september2025,
+      description: t.achievement2Desc,
       images: [
         '/pic4.png',
         '/pic5.png',
@@ -38,16 +42,16 @@ function AchievementsSection() {
         donors: 88,
         medianDonation: 55,
         breakdown: [
-          { category: 'Legal Assistance', amount: 1800 },
-          { category: 'Community Outreach', amount: 1500 },
-          { category: 'Transportation', amount: 1000 },
-          { category: 'Volunteer Expenses', amount: 500 },
+          { category: t.legalAssistance, amount: 1800 },
+          { category: t.communityOutreach, amount: 1500 },
+          { category: t.transportation, amount: 1000 },
+          { category: t.volunteerExpenses, amount: 500 },
         ],
       },
     },
     {
-      month: 'August 2025',
-      description: 'Organized empowerment workshops and support groups for 40 women, while providing childcare services and educational resources for their children.',
+      month: t.august2025,
+      description: t.achievement3Desc,
       images: [
         '/pic7.png',
         '/pic8.png',
@@ -58,14 +62,14 @@ function AchievementsSection() {
         donors: 102,
         medianDonation: 51,
         breakdown: [
-          { category: 'Food & Meals', amount: 2000 },
-          { category: 'Childcare Services', amount: 1500 },
-          { category: 'Educational Resources', amount: 1000 },
-          { category: 'Workshop Materials', amount: 700 },
+          { category: t.foodMeals, amount: 2000 },
+          { category: t.childcareServices, amount: 1500 },
+          { category: t.educationalResources, amount: 1000 },
+          { category: t.workshopMaterials, amount: 700 },
         ],
       },
     },
-  ];
+  ], [t]);
 
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) => 
@@ -86,9 +90,9 @@ function AchievementsSection() {
   return (
     <section id="monthly-updates" className="achievements-section">
       <div className="achievements-content">
-        <h2>Our Impact</h2>
+        <h2>{t.ourImpact}</h2>
         <p className="achievements-subtitle">
-          See what we've accomplished together in the past months
+          {t.seeWhatWeAccomplished}
         </p>
         
         <div className="carousel-container">
@@ -118,20 +122,19 @@ function AchievementsSection() {
                     </div>
                     <div className="achievement-spending">
                       <p>
-                        We spent <strong>${achievement.spending.total.toLocaleString()}</strong> on
-                        these actions, which were funded by{' '}
-                        <strong>{achievement.spending.donors} donors</strong> with a median
-                        donation of <strong>${achievement.spending.medianDonation}</strong>.
+                        {t.weSpent} <strong>${achievement.spending.total.toLocaleString()}</strong> {t.onTheseActions}{' '}
+                        <strong>{achievement.spending.donors} {t.donors}</strong> {t.withMedianDonation}{' '}
+                        <strong>${achievement.spending.medianDonation}</strong>.
                       </p>
                       <div className="budget-breakdown">
                         <p className="budget-breakdown-title">
-                          The ${achievement.spending.total.toLocaleString()} spent this month went towards:
+                          {t.spentThisMonth}{achievement.spending.total.toLocaleString()} {t.wentTowards}
                         </p>
                         <ul className="budget-breakdown-list">
                           {achievement.spending.breakdown.map((item, idx) => (
                             <li key={idx} className="budget-item">
                               <span className="budget-amount">${item.amount.toLocaleString()}</span>
-                              <span className="budget-category">for {item.category}</span>
+                              <span className="budget-category">{t.for} {item.category}</span>
                             </li>
                           ))}
                         </ul>
@@ -161,7 +164,7 @@ function AchievementsSection() {
 
         <div className="load-more-container">
           <button className="load-more-btn">
-            Load More
+            {t.loadMore}
           </button>
         </div>
       </div>
