@@ -6,7 +6,7 @@ function AchievementsSection() {
 
   const achievements = [
     {
-      month: 'October 2024',
+      month: 'October 2025',
       description: 'Launched multilingual counseling services and provided emergency shelter to 20 women and their children fleeing domestic violence.',
       images: [
         '/pic1.png',
@@ -26,7 +26,7 @@ function AchievementsSection() {
       },
     },
     {
-      month: 'September 2024',
+      month: 'September 2025',
       description: 'Conducted community outreach programs and provided legal assistance to 25 women navigating protection orders and custody cases.',
       images: [
         '/pic4.png',
@@ -46,7 +46,7 @@ function AchievementsSection() {
       },
     },
     {
-      month: 'August 2024',
+      month: 'August 2025',
       description: 'Organized empowerment workshops and support groups for 40 women, while providing childcare services and educational resources for their children.',
       images: [
         '/pic7.png',
