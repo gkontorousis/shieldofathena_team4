@@ -41,10 +41,132 @@
   height: auto;
 }
 
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  justify-content: center;
+}
+
+.header-nav-btn {
+  background: transparent;
+  color: #7a6a8b;
+  border: none;
+  padding: 10px 16px;
+  font-size: 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  position: relative;
+}
+
+.header-nav-btn:hover {
+  background: rgba(164, 147, 181, 0.1);
+  color: #7a6a8b;
+  transform: translateY(-2px);
+}
+
+.header-nav-btn:active {
+  transform: translateY(0);
+}
+
 .header-actions {
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+.language-dropdown {
+  position: relative;
+}
+
+.language-dropdown-btn {
+  background: transparent;
+  color: #7a6a8b;
+  border: 2px solid rgba(164, 147, 181, 0.2);
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+  justify-content: space-between;
+}
+
+.language-dropdown-btn:hover {
+  background: rgba(164, 147, 181, 0.1);
+  border-color: rgba(164, 147, 181, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(164, 147, 181, 0.2);
+}
+
+.language-arrow {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.language-dropdown-btn:hover .language-arrow {
+  transform: translateY(2px);
+}
+
+.language-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border: 2px solid rgba(164, 147, 181, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(164, 147, 181, 0.2);
+  min-width: 180px;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1001;
+  animation: fadeInDown 0.3s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.language-option {
+  width: 100%;
+  padding: 12px 20px;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: #4a5568;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(164, 147, 181, 0.1);
+}
+
+.language-option:last-child {
+  border-bottom: none;
+}
+
+.language-option:hover {
+  background: rgba(164, 147, 181, 0.1);
+  color: #7a6a8b;
+}
+
+.language-option.active {
+  background: rgba(164, 147, 181, 0.15);
+  color: #7a6a8b;
+  font-weight: 600;
 }
 
 .header-login-btn {
@@ -142,6 +264,35 @@
     padding: 15px 20px;
     flex-wrap: wrap;
   }
+
+  .header-nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 8px;
+  }
+
+  .header-nav-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .language-dropdown-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    min-width: 100px;
+  }
+
+  .language-dropdown-menu {
+    min-width: 160px;
+    max-height: 300px;
+  }
+
+  .language-option {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
   
   .header-logo .logo-container {
     max-width: 200px;
@@ -169,6 +320,40 @@
 @media (max-width: 480px) {
   .header-content {
     padding: 12px 15px;
+  }
+
+  .header-nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 8px;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .header-nav-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .header-actions {
+    gap: 10px;
+  }
+
+  .language-dropdown-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+    min-width: 90px;
+  }
+
+  .language-dropdown-menu {
+    min-width: 150px;
+    right: 0;
+  }
+
+  .language-option {
+    padding: 10px 14px;
+    font-size: 13px;
   }
   
   .header-logo .logo-container {
@@ -307,6 +492,7 @@
   position: relative;
   opacity: 0;
   animation: fadeInUp 1s ease-out 0.3s forwards;
+  scroll-margin-top: 100px;
 }
 
 @keyframes fadeInUp {
@@ -365,6 +551,7 @@
   position: relative;
   opacity: 0;
   animation: fadeInUp 1s ease-out 0.5s forwards;
+  scroll-margin-top: 100px;
 }
 
 .pixelated-content {
