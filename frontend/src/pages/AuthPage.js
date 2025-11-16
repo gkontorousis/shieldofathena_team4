@@ -41,7 +41,14 @@ function AuthPage() {
       if (result.success) {
         navigate('/dashboard');
       } else {
-        setError(result.error);
+        console.log(result.error);
+        if (result.error.includes('auth/invalid-credential')) {
+          setError(t.wrongEmailOrPassword);
+        } else if (result.error.includes('auth/email-already-in-use')) {
+          setError(t.emailAlreadyInUse);
+        } else {
+          setError(result.error);
+        }
       }
     } catch (err) {
       setError(t.anUnexpectedErrorOccurred);
