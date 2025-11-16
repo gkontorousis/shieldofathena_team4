@@ -116,6 +116,11 @@ function UserDashboard() {
           <button className="donate-btn" onClick={() => navigate('/donate')}>
             Make Another Donation
           </button>
+          <button 
+            className="donate-btn" 
+            onClick={() => navigate('/my-impact')}>
+            View Your Impact So Far
+          </button>
           <button className="logout-btn" onClick={logout}>
             Logout
           </button>
