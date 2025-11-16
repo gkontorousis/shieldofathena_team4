@@ -85,43 +85,6 @@ function DonationPage() {
   return (
     <div className="donation-page">
       <div className="donation-container">
-        <h1>{t.makeADonation}</h1>
-        <p className="donation-subtitle">
-          {t.donationSubtitle}
-        </p>
-
-        {!user && (
-          <div className="login-benefits">
-            <h3>{t.benefitsOfCreatingAccount}</h3>
-            <div className="benefit-item">
-              <img
-                src="/kids_drawing.jpg"
-                alt="Child's drawing"
-                className="benefit-image"
-              />
-              <p>
-                <strong>{t.donationBenefit1}</strong>
-              </p>
-            </div>
-            <div className="benefit-item">
-              <img
-                src="/dinner_table.jpg"
-                alt="Donor community event"
-                className="benefit-image"
-              />
-              <p>
-                <strong>{t.donationBenefit2}</strong>
-              </p>
-            </div>
-            <button
-              className="create-account-btn"
-              onClick={() => navigate('/auth')}
-            >
-              {t.createAccount}
-            </button>
-          </div>
-        )}
-
         <div className="donation-amounts">
           <h2>{t.chooseDonationAmount}</h2>
           <div className="amount-grid">
@@ -184,6 +147,38 @@ function DonationPage() {
             {loading ? t.processing : t.donateNow}
           </button>
         </div>
+
+        {!user && (
+          <div className="login-benefits">
+            <h3>{t.benefitsOfCreatingAccount}</h3>
+            <div className="benefit-item">
+              <img
+                src="/kids_drawing.jpg"
+                alt="Child's drawing"
+                className="benefit-image"
+              />
+              <p>
+                <strong>{t.donationBenefit1}</strong>
+              </p>
+            </div>
+            <div className="benefit-item">
+              <img
+                src="/dinner_table.jpg"
+                alt="Donor community event"
+                className="benefit-image"
+              />
+              <p>
+                <strong>{t.donationBenefit2}</strong>
+              </p>
+            </div>
+            <button
+              className="create-account-btn"
+              onClick={() => navigate('/auth')}
+            >
+              {t.createAccount}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

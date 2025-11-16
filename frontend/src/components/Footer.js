@@ -8,7 +8,7 @@ function Footer() {
   const t = translations[language] || translations.en;
 
   return (
-    <footer className="footer">
+    <footer id="footer" className="footer">
       <div className="footer-content">
         <div className="footer-section">
           <h3 className="footer-title">{t.emergencyResources}</h3>
