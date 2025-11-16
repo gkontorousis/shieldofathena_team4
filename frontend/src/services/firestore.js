@@ -53,7 +53,7 @@ export const getUserDonations = async (userId) => {
 
 export const getTotalDonations = async () => {
   try {
-    const totalDoc = await getDoc(doc(db, 'stats', 'donations'));
+    const totalDoc = await getDoc(doc(db, 'donations'));
     if (totalDoc.exists()) {
       const data = totalDoc.data();
       const totalAmount = data.total_amount || 0;

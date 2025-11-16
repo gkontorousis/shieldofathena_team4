@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -13,10 +13,17 @@ function AuthPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, register, loginWithGoogle, loginWithFacebook } = useAuth();
+  const { login, register, loginWithGoogle, loginWithFacebook, user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { language } = useLanguage();
   const t = translations[language] || translations.en;
+
+  // Redirect if already authenticated (e.g., after OAuth redirect)
+  useEffect(() => {
+    if (!authLoading && user) {
+      navigate('/dashboard');
+    }
+  }, [user, authLoading, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -115,9 +122,11 @@ function AuthPage() {
                 try {
                   const result = await loginWithGoogle();
                   if (result.success) {
+                    setLoading(false);
                     navigate('/dashboard');
                   } else {
                     setError(result.error);
+                    setLoading(false);
                   }
                 } catch (err) {
                   setError(t.anUnexpectedErrorOccurred);
@@ -137,9 +146,11 @@ function AuthPage() {
                 try {
                   const result = await loginWithFacebook();
                   if (result.success) {
+                    setLoading(false);
                     navigate('/dashboard');
                   } else {
                     setError(result.error);
+                    setLoading(false);
                   }
                 } catch (err) {
                   setError(t.anUnexpectedErrorOccurred);
