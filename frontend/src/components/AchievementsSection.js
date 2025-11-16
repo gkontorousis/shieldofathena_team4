@@ -48,7 +48,7 @@ function AchievementsSection() {
   ];
 
   return (
-    <section className="achievements-section">
+    <section id="monthly-updates" className="achievements-section">
       <div className="achievements-content">
         <h2>Our Impact</h2>
         <p className="achievements-subtitle">
