@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations/translations';
 import ReactPlayer from 'react-player';
 import './LandingPage.css';
 import PixelatedImage from '../components/PixelatedImage';
@@ -11,8 +13,10 @@ import Footer from '../components/Footer';
 function LandingPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { language, setLanguage } = useLanguage();
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
   const languageDropdownRef = useRef(null);
+  const t = translations[language] || translations.en;
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -50,7 +54,7 @@ function LandingPage() {
     { code: 'ur', name: 'اردو' },
   ];
 
-  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+  const selectedLanguage = languages.find(lang => lang.code === language) || languages[0];
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -74,13 +78,13 @@ function LandingPage() {
           </div>
           <nav className="header-nav">
             <button className="header-nav-btn" onClick={() => scrollToSection('mission-section')}>
-              Mission
+              {t.mission}
             </button>
             <button className="header-nav-btn" onClick={() => scrollToSection('mystery-section')}>
-              Mystery Image
+              {t.mysteryImage}
             </button>
             <button className="header-nav-btn" onClick={() => scrollToSection('monthly-updates')}>
-              Monthly Updates
+              {t.monthlyUpdates}
             </button>
           </nav>
           <div className="header-actions">
@@ -99,7 +103,7 @@ function LandingPage() {
                       key={lang.code}
                       className={`language-option ${selectedLanguage.code === lang.code ? 'active' : ''}`}
                       onClick={() => {
-                        setSelectedLanguage(lang);
+                        setLanguage(lang.code);
                         setLanguageDropdownOpen(false);
                       }}
                     >
@@ -113,10 +117,10 @@ function LandingPage() {
               className="header-login-btn"
               onClick={() => navigate(user ? '/dashboard' : '/auth')}
             >
-              {user ? 'Dashboard' : 'Log in / Register'}
+              {user ? t.dashboard : t.logInRegister}
             </button>
             <button className="header-donate-btn" onClick={() => navigate('/donate')}>
-              Donate
+              {t.donate}
             </button>
           </div>
         </div>
@@ -138,8 +142,7 @@ function LandingPage() {
           />
           <div className="video-captions">
             <p>
-              "I was struggling to make ends meet, and Shield of Athena helped me
-              get back on my feet. Their support changed my life."
+              {t.testimonial}
             </p>
           </div>
         </div>
@@ -147,19 +150,18 @@ function LandingPage() {
 
       <section id="mission-section" className="mission-section">
         <div className="mission-content">
-          <h2>Our Mission</h2>
+          <h2>{t.ourMission}</h2>
           <p>
-            The Shield is a charitable organization offering culturally and linguistically adapted education, professional support, intervention and prevention services to help women, their children, and ethnocultural communities break the cycle of violence. We provide a warm, respectful, and secure environment with equal access to services, acting with integrity and professionalism while emphasizing that violence is unacceptable regardless of ethnic, educational, religious, or socioeconomic background.
+            {t.missionText}
           </p>
         </div>
       </section>
 
       <section id="mystery-section" className="pixelated-section">
         <div className="pixelated-content">
-          <h2>Uncover the Mystery</h2>
+          <h2>{t.uncoverMystery}</h2>
           <p>
-            Every $10 you donate will reveal a new pixel of this hidden image.
-            Help us uncover the full picture of hope and change!
+            {t.mysteryText}
           </p>
           <PixelatedImage />
         </div>
