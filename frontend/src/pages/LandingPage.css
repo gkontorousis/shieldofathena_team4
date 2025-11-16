@@ -7,7 +7,6 @@
 
 /* Header with Logo and Navigation */
 .landing-header {
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -62,7 +61,7 @@
 }
 
 .header-login-btn::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -103,7 +102,7 @@
 }
 
 .header-donate-btn::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   left: -50%;
@@ -142,24 +141,24 @@
     padding: 15px 20px;
     flex-wrap: wrap;
   }
-  
+
   .header-logo .logo-container {
     max-width: 200px;
   }
-  
+
   .header-logo .logo-image {
     max-width: 200px !important;
   }
-  
+
   .header-actions {
     gap: 10px;
   }
-  
+
   .header-login-btn {
     padding: 8px 16px;
     font-size: 14px;
   }
-  
+
   .header-donate-btn {
     padding: 10px 24px;
     font-size: 16px;
@@ -170,20 +169,20 @@
   .header-content {
     padding: 12px 15px;
   }
-  
+
   .header-logo .logo-container {
     max-width: 150px;
   }
-  
+
   .header-logo .logo-image {
     max-width: 150px !important;
   }
-  
+
   .header-login-btn {
     padding: 6px 12px;
     font-size: 12px;
   }
-  
+
   .header-donate-btn {
     padding: 8px 20px;
     font-size: 14px;
@@ -212,28 +211,40 @@
 }
 
 .video-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 30% 30%, rgba(164, 147, 181, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 70% 70%, rgba(184, 169, 199, 0.08) 0%, transparent 50%);
+  background: radial-gradient(
+      circle at 30% 30%,
+      rgba(164, 147, 181, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      rgba(184, 169, 199, 0.08) 0%,
+      transparent 50%
+    );
   pointer-events: none;
   z-index: 1;
 }
 
 .video-section::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0) 85%, rgba(255, 255, 255, 1) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0) 15%,
+    rgba(255, 255, 255, 0) 85%,
+    rgba(255, 255, 255, 1) 100%
+  );
   pointer-events: none;
   z-index: 2;
 }
@@ -254,7 +265,7 @@
   .video-section {
     padding: 5% 2%;
   }
-  
+
   .video-container {
     width: 97%;
     border-radius: 18px;
@@ -265,7 +276,7 @@
   .video-section {
     padding: 5% 1.5%;
   }
-  
+
   .video-container {
     width: 98%;
     border-radius: 18px;
@@ -358,19 +369,18 @@
   color: #2d3748;
 }
 
-.pixelated-section {
-  padding: 120px 40px;
+/* .pixelated-section {
   background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   text-align: center;
   position: relative;
   opacity: 0;
   animation: fadeInUp 1s ease-out 0.5s forwards;
+  height: 100vh;
+  width: 100vw;
+  padding: 20px 40px 20px 40px;
 }
 
 .pixelated-content {
-  max-width: 1000px;
-  margin: 0 auto;
-  position: relative;
   z-index: 1;
 }
 
@@ -396,4 +406,65 @@
   margin-bottom: 50px;
   color: #4a5568;
   line-height: 1.8;
+} */
+.mosaic-section {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  padding: 120px 40px;
+  text-align: center;
+  position: relative;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 0.5s forwards;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mosaic-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 1;
+  width: 100%;
+}
+
+.mosaic-section h2 {
+  font-size: 48px;
+  margin-bottom: 25px;
+  color: #1a1a1a;
+  font-weight: 700;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #a493b5 0%, #b8a9c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: transform 0.3s ease;
+}
+
+.mosaic-section h2:hover {
+  transform: scale(1.05);
+}
+
+.mosaic-section p {
+  font-size: 20px;
+  margin-bottom: 50px;
+  color: #4a5568;
+  line-height: 1.8;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .mosaic-section {
+    padding: 80px 20px;
+  }
+
+  .mosaic-section h2 {
+    font-size: 36px;
+  }
+
+  .mosaic-section p {
+    font-size: 18px;
+  }
 }
