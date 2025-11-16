@@ -8,6 +8,7 @@ import AchievementsSection from '../components/AchievementsSection';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+
 function LandingPage() {
   const { language } = useLanguage();
   const t = translations[language] || translations.en;
