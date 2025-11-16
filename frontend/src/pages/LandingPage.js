@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations/translations';
 import ReactPlayer from 'react-player';
@@ -18,6 +18,26 @@ function LandingPage() {
     { label: t.monthlyUpdates, sectionId: 'monthly-updates' },
   ];
 
+  const playerConfig = useMemo(() => ({
+    youtube: {
+      playerVars: { 
+        autoplay: 1, 
+        modestbranding: 1, 
+        loop: 1, 
+        playlist: '-3sc4QkwaxE',
+        controls: 1,
+        rel: 0,
+        iv_load_policy: 3,
+        playsinline: 1,
+        enablejsapi: 1,
+        origin: window.location.origin
+      },
+      embedOptions: {
+        modestbranding: 1
+      }
+    },
+  }), []);
+
   return (
     <div className="landing-page">
       <Header navItems={navItems} />
@@ -32,11 +52,10 @@ function LandingPage() {
             controls={true}
             width="100%"
             height="100%"
-            config={{
-              youtube: {
-                playerVars: { autoplay: 1, modestbranding: 1, loop: 1, playlist: '-3sc4QkwaxE' },
-              },
-            }}
+            light={false}
+            pip={false}
+            stopOnUnmount={false}
+            config={playerConfig}
           />
         </div>
       </section>
