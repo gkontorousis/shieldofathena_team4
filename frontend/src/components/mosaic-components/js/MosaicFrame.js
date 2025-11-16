@@ -147,14 +147,14 @@ const MosaicFrame = (props) => {
     [totalDonations]
   );
 
-  // 5. Draw mosaic blur + sharp tiles on canvas whenever donations / images change
+  // 5. Draw mosaic: grey base + sharp tiles on canvas whenever donations / images change
   useEffect(() => {
     processedImages.forEach((slide, index) => {
       const canvas = canvasRefs.current[index];
       if (!canvas || !slide) return;
 
       const ctx = canvas.getContext("2d");
-      const { origCanvas, blurCanvas } = slide;
+      const { origCanvas } = slide; // blurCanvas không dùng nữa
 
       const width = CANVAS_SIZE;
       const height = CANVAS_SIZE;
@@ -164,9 +164,10 @@ const MosaicFrame = (props) => {
       const tileW = width / GRID_SIZE;
       const tileH = height / GRID_SIZE;
 
-      // Base: draw full blurred image
+      // Base: fill full grey background
       ctx.clearRect(0, 0, width, height);
-      ctx.drawImage(blurCanvas, 0, 0, width, height);
+      ctx.fillStyle = "#d3d3d3"; // grey color for the unrevealed pixels
+      ctx.fillRect(0, 0, width, height);
 
       const pixelsRevealed = getPixelsRevealedForSlide(index);
 
@@ -188,7 +189,7 @@ const MosaicFrame = (props) => {
         );
       }
 
-      // Optional: draw faint grid lines
+      // Draw faint grid lines
       ctx.strokeStyle = "rgba(255,255,255,0.4)";
       ctx.lineWidth = 1;
       for (let gx = 0; gx <= GRID_SIZE; gx++) {
