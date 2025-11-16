@@ -7,6 +7,7 @@ import ThankYouPage from './pages/ThankYouPage';
 import UserDashboard from './pages/UserDashboard';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import DonorImpactPage from "./pages/DonorImpactPage";
+import { LanguageProvider } from './context/LanguageContext';
 import './App.css';
 
 function ProtectedRoute({ children }) {
@@ -20,29 +21,31 @@ function ProtectedRoute({ children }) {
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/auth" element={<AuthPage />} />
-          <Route path="/donate" element={<DonationPage />} />
-          <Route path="/thank-you" element={<ThankYouPage />} />
-          <Route path="/my-impact" 
-          element={<ProtectedRoute> 
-              <DonorImpactPage />
-            </ProtectedRoute>} 
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <UserDashboard />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </Router>
-    </AuthProvider>
+    <LanguageProvider>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/donate" element={<DonationPage />} />
+            <Route path="/thank-you" element={<ThankYouPage />} />
+            <Route path="/my-impact" 
+            element={<ProtectedRoute> 
+                <DonorImpactPage />
+              </ProtectedRoute>} 
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <UserDashboard />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Router>
+      </AuthProvider>
+    </LanguageProvider>
   );
 }
 
