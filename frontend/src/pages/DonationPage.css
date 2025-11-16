@@ -1,6 +1,7 @@
 .donation-page {
   min-height: 100vh;
   padding: 60px 20px;
+  padding-top: 140px;
   background: #ffffff;
   position: relative;
 }

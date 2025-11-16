@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations/translations';
 import { getUserDonations, getEvents, registerForEvent, getUserData } from '../services/firestore';
+import Header from '../components/Header';
 import './UserDashboard.css';
 
 function UserDashboard() {
@@ -114,6 +115,7 @@ function UserDashboard() {
 
   return (
     <div className="user-dashboard">
+      <Header navItems={[]} />
       <div className="dashboard-header">
         <h1>{t.welcome} {userData?.name || user?.displayName || t.user}!</h1>
         <div className="header-actions">

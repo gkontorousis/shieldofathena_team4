@@ -77,13 +77,15 @@ function Header({ navItems = [] }) {
     };
   }, []);
 
+  const isLandingPage = navItems.length > 0;
+
   return (
     <header className="app-header">
       <div className="header-content">
-        <div className="header-logo">
+        <div className="header-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <Logo />
         </div>
-        {navItems.length > 0 && (
+        {isLandingPage && (
           <nav className="header-nav">
             {navItems.map((item, index) => (
               <button
@@ -130,21 +132,25 @@ function Header({ navItems = [] }) {
               </div>
             )}
           </div>
-          <button
-            className="header-login-btn"
-            onClick={() => navigate(user ? '/dashboard' : '/auth')}
-          >
-            {user ? t.dashboard : t.logInRegister}
-          </button>
-          <button className="header-donate-btn" onClick={() => navigate('/donate')}>
-            {t.donate}
-          </button>
-          <button 
-            className="header-contact-btn" 
-            onClick={() => scrollToSection('footer')}
-          >
-            {t.contactUs}
-          </button>
+          {isLandingPage && (
+            <>
+              <button
+                className="header-login-btn"
+                onClick={() => navigate(user ? '/dashboard' : '/auth')}
+              >
+                {user ? t.dashboard : t.logInRegister}
+              </button>
+              <button className="header-donate-btn" onClick={() => navigate('/donate')}>
+                {t.donate}
+              </button>
+              <button 
+                className="header-contact-btn" 
+                onClick={() => scrollToSection('footer')}
+              >
+                {t.contactUs}
+              </button>
+            </>
+          )}
         </div>
       </div>
     </header>

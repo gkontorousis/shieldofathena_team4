@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations/translations';
+import Header from '../components/Header';
 import './AuthPage.css';
 
 function AuthPage() {
@@ -44,6 +45,7 @@ function AuthPage() {
 
   return (
     <div className="auth-page">
+      <Header navItems={[]} />
       <div className="auth-container">
         <h1>{isLogin ? t.logIn : t.signUp}</h1>
         
