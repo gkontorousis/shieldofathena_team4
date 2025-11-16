@@ -161,12 +161,6 @@ function AchievementsSection() {
             />
           ))}
         </div>
-
-        <div className="load-more-container">
-          <button className="load-more-btn">
-            {t.loadMore}
-          </button>
-        </div>
       </div>
     </section>
   );

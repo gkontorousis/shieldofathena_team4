@@ -139,6 +139,12 @@ function Header({ navItems = [] }) {
           <button className="header-donate-btn" onClick={() => navigate('/donate')}>
             {t.donate}
           </button>
+          <button 
+            className="header-contact-btn" 
+            onClick={() => scrollToSection('footer')}
+          >
+            {t.contactUs}
+          </button>
         </div>
       </div>
     </header>
