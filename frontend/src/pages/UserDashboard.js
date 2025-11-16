@@ -127,7 +127,7 @@ function UserDashboard() {
             onClick={() => navigate('/my-impact')}>
             {t.viewYourImpactSoFar}
           </button>
-          <button className="logout-btn" onClick={logout}>
+          <button className="logout-btn" onClick={() => {logout(); navigate('/')}}>
             {t.logout}
           </button>
         </div>
