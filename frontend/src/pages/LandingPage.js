@@ -35,8 +35,9 @@ function LandingPage() {
       <section className="video-section">
         <div className="video-container">
           <ReactPlayer
-            url="https://www.youtube.com/watch?v=AvrB91Hr9kE"
+            url="https://youtu.be/-3sc4QkwaxE"
             playing={true}
+            muted = {true}
             controls={true}
             width="100%"
             height="100%"
@@ -46,12 +47,6 @@ function LandingPage() {
               },
             }}
           />
-          <div className="video-captions">
-            <p>
-              "I was struggling to make ends meet, and Shield of Athena helped me
-              get back on my feet. Their support changed my life."
-            </p>
-          </div>
         </div>
       </section>
 
