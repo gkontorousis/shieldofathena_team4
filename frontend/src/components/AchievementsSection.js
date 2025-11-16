@@ -6,12 +6,12 @@ function AchievementsSection() {
 
   const achievements = [
     {
-      month: 'October 2024',
+      month: 'October 2025',
       description: 'Launched multilingual counseling services and provided emergency shelter to 20 women and their children fleeing domestic violence.',
       images: [
-        'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&fit=crop',
-        'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&fit=crop',
-        'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&fit=crop',
+        '/pic1.png',
+        '/pic2.png',
+        '/pic3.png',
       ],
       spending: {
         total: 5500,
@@ -26,12 +26,12 @@ function AchievementsSection() {
       },
     },
     {
-      month: 'September 2024',
+      month: 'September 2025',
       description: 'Conducted community outreach programs and provided legal assistance to 25 women navigating protection orders and custody cases.',
       images: [
-        'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&fit=crop',
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&fit=crop',
-        'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&fit=crop',
+        '/pic4.png',
+        '/pic5.png',
+        '/pic6.png',
       ],
       spending: {
         total: 4800,
@@ -46,12 +46,12 @@ function AchievementsSection() {
       },
     },
     {
-      month: 'August 2024',
+      month: 'August 2025',
       description: 'Organized empowerment workshops and support groups for 40 women, while providing childcare services and educational resources for their children.',
       images: [
-        'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&fit=crop',
-        'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&fit=crop',
-        'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&fit=crop',
+        '/pic7.png',
+        '/pic8.png',
+        '/pic9.png',
       ],
       spending: {
         total: 5200,

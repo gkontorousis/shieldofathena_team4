@@ -6,6 +6,7 @@ import './LandingPage.css';
 import PixelatedImage from '../components/PixelatedImage';
 import AchievementsSection from '../components/AchievementsSection';
 import Logo from '../components/Logo';
+import Footer from '../components/Footer';
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -165,6 +166,8 @@ function LandingPage() {
       </section>
 
       <AchievementsSection />
+      
+      <Footer />
     </div>
   );
 }
