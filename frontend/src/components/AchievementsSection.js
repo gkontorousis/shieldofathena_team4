@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './AchievementsSection.css';
 
 function AchievementsSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const achievements = [
     {
       month: 'October 2024',
@@ -65,6 +67,22 @@ function AchievementsSection() {
     },
   ];
 
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? achievements.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === achievements.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+  };
+
   return (
     <section id="monthly-updates" className="achievements-section">
       <div className="achievements-content">
@@ -72,43 +90,80 @@ function AchievementsSection() {
         <p className="achievements-subtitle">
           See what we've accomplished together in the past months
         </p>
-        {achievements.map((achievement, index) => (
-          <div key={index} className="achievement-card">
-            <h3>{achievement.month}</h3>
-            <p className="achievement-description">{achievement.description}</p>
-            <div className="achievement-images">
-              {achievement.images.map((img, imgIndex) => (
-                <img
-                  key={imgIndex}
-                  src={img}
-                  alt={`${achievement.month} impact`}
-                  className="achievement-image"
-                />
+        
+        <div className="carousel-container">
+          <button className="carousel-btn carousel-btn-prev" onClick={goToPrevious}>
+            ‹
+          </button>
+          
+          <div className="carousel-wrapper">
+            <div 
+              className="carousel-track" 
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {achievements.map((achievement, index) => (
+                <div key={index} className="carousel-slide">
+                  <div className="achievement-card">
+                    <h3>{achievement.month}</h3>
+                    <div className="achievement-description">{achievement.description}</div>
+                    <div className="achievement-images">
+                      {achievement.images.map((img, imgIndex) => (
+                        <img
+                          key={imgIndex}
+                          src={img}
+                          alt={`${achievement.month} impact`}
+                          className="achievement-image"
+                        />
+                      ))}
+                    </div>
+                    <div className="achievement-spending">
+                      <p>
+                        We spent <strong>${achievement.spending.total.toLocaleString()}</strong> on
+                        these actions, which were funded by{' '}
+                        <strong>{achievement.spending.donors} donors</strong> with a median
+                        donation of <strong>${achievement.spending.medianDonation}</strong>.
+                      </p>
+                      <div className="budget-breakdown">
+                        <p className="budget-breakdown-title">
+                          The ${achievement.spending.total.toLocaleString()} spent this month went towards:
+                        </p>
+                        <ul className="budget-breakdown-list">
+                          {achievement.spending.breakdown.map((item, idx) => (
+                            <li key={idx} className="budget-item">
+                              <span className="budget-amount">${item.amount.toLocaleString()}</span>
+                              <span className="budget-category">for {item.category}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
-            <div className="achievement-spending">
-              <p>
-                We spent <strong>${achievement.spending.total.toLocaleString()}</strong> on
-                these actions, which were funded by{' '}
-                <strong>{achievement.spending.donors} donors</strong> with a median
-                donation of <strong>${achievement.spending.medianDonation}</strong>.
-              </p>
-              <div className="budget-breakdown">
-                <p className="budget-breakdown-title">
-                  The ${achievement.spending.total.toLocaleString()} spent this month went towards:
-                </p>
-                <ul className="budget-breakdown-list">
-                  {achievement.spending.breakdown.map((item, idx) => (
-                    <li key={idx} className="budget-item">
-                      <span className="budget-amount">${item.amount.toLocaleString()}</span>
-                      <span className="budget-category">for {item.category}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
           </div>
-        ))}
+
+          <button className="carousel-btn carousel-btn-next" onClick={goToNext}>
+            ›
+          </button>
+        </div>
+
+        <div className="carousel-dots">
+          {achievements.map((_, index) => (
+            <button
+              key={index}
+              className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => goToSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        <div className="load-more-container">
+          <button className="load-more-btn">
+            Load More
+          </button>
+        </div>
       </div>
     </section>
   );
