@@ -1,12 +1,17 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations/translations';
 import { getUserDonations, getEvents, registerForEvent, getUserData } from '../services/firestore';
+import Header from '../components/Header';
 import './UserDashboard.css';
 
 function UserDashboard() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
   const [donations, setDonations] = useState([]);
   const [events, setEvents] = useState([]);
   const [userData, setUserData] = useState(null);
@@ -55,17 +60,17 @@ function UserDashboard() {
 
   const handleEventRegister = async (eventId, eventPrice) => {
     if (!user) {
-      alert('Please log in to register for events');
+      alert(t.pleaseLogInToRegister);
       return;
     }
     setRegisteringEvent(eventId);
     try {
       await registerForEvent(user.uid, eventId, eventPrice);
-      alert('Successfully registered for the event!');
+      alert(t.successfullyRegistered);
       fetchEvents(); // Refresh events to update places available
       fetchDonations(); // Refresh donations to show the registration payment
     } catch (error) {
-      alert(error.message || 'Failed to register for event');
+      alert(error.message || t.failedToRegister);
     } finally {
       setRegisteringEvent(null);
     }
@@ -73,15 +78,15 @@ function UserDashboard() {
 
   const totalDonated = donations.reduce((sum, d) => sum + d.amount, 0);
 
-  const donationExamples = {
-    10: { image: 'https://images.unsplash.com/photo-1488521787991-6625b2ba0e01?w=200', text: 'Meal for a homeless person' },
-    25: { image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=200', text: 'Blanket for a homeless person' },
-    50: { image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200', text: 'Week of groceries for a family' },
-    100: { image: 'https://images.unsplash.com/photo-1488521787991-6625b2ba0e01?w=200', text: 'Utility bills for a month' },
-    250: { image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=200', text: 'Emergency housing assistance' },
-    500: { image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200', text: 'Educational programs for children' },
-    1000: { image: 'https://images.unsplash.com/photo-1488521787991-6625b2ba0e01?w=200', text: 'Comprehensive family support' },
-  };
+  const donationExamples = useMemo(() => ({
+    10: { image: 'https://images.unsplash.com/photo-1488521787991-6625b2ba0e01?w=200', text: t.mealForWomenAndChildren },
+    25: { image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=200', text: t.clothingForWomenAndChildren },
+    50: { image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200', text: t.weekOfGroceries },
+    100: { image: 'https://images.unsplash.com/photo-1488521787991-6625b2ba0e01?w=200', text: t.utilityBills },
+    250: { image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=200', text: t.emergencyHousing },
+    500: { image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200', text: t.educationalPrograms },
+    1000: { image: 'https://images.unsplash.com/photo-1488521787991-6625b2ba0e01?w=200', text: t.comprehensiveSupport },
+  }), [t]);
 
   const getDonationExample = (amount) => {
     const keys = Object.keys(donationExamples).map(Number).sort((a, b) => b - a);
@@ -110,14 +115,20 @@ function UserDashboard() {
 
   return (
     <div className="user-dashboard">
+      <Header navItems={[]} />
       <div className="dashboard-header">
-        <h1>Welcome, {userData?.name || user?.displayName || 'User'}!</h1>
+        <h1>{t.welcome} {userData?.name || user?.displayName || t.user}!</h1>
         <div className="header-actions">
           <button className="donate-btn" onClick={() => navigate('/donate')}>
-            Make Another Donation
+            {t.makeAnotherDonation}
+          </button>
+          <button 
+            className="donate-btn" 
+            onClick={() => navigate('/my-impact')}>
+            {t.viewYourImpactSoFar}
           </button>
           <button className="logout-btn" onClick={logout}>
-            Logout
+            {t.logout}
           </button>
         </div>
       </div>
@@ -125,13 +136,13 @@ function UserDashboard() {
       <div className="dashboard-content">
         {/* Donation History Section */}
         <section className="dashboard-section">
-          <h2>Your Donation History</h2>
+          <h2>{t.yourDonationHistory}</h2>
           <div className="total-donated">
-            <h3>Total Donated: ${totalDonated.toLocaleString()}</h3>
+            <h3>{t.totalDonated} ${totalDonated.toLocaleString()}</h3>
           </div>
           <div className="donations-timeline">
             {donations.length === 0 ? (
-              <p className="no-data">No donations yet. Make your first donation!</p>
+              <p className="no-data">{t.noDonationsYet}</p>
             ) : (
               donations.map((donation) => {
                 const example = getDonationExample(donation.amount);
@@ -144,10 +155,10 @@ function UserDashboard() {
                     <div className="donation-details">
                       <p className="donation-impact">{example.text}</p>
                       <p className="donation-date">
-                        {new Date(donation.datetime).toLocaleDateString()}
+                        {new Date(donation.datetime).toLocaleDateString(language === 'fr' ? 'fr-CA' : 'en-US')}
                       </p>
                       {donation.recurring && (
-                        <span className="recurring-badge">Recurring</span>
+                        <span className="recurring-badge">{t.recurring}</span>
                       )}
                     </div>
                   </div>
@@ -159,11 +170,11 @@ function UserDashboard() {
 
         {/* Events Section */}
         <section className="dashboard-section">
-          <h2>Fundraising Community Events</h2>
+          <h2>{t.fundraisingCommunityEvents}</h2>
           {loading ? (
-            <p>Loading events...</p>
+            <p>{t.loadingEvents}</p>
           ) : events.length === 0 ? (
-            <p className="no-data">No upcoming events at this time.</p>
+            <p className="no-data">{t.noUpcomingEvents}</p>
           ) : (
             <div className="events-grid">
               {events.map((event) => (
@@ -171,17 +182,17 @@ function UserDashboard() {
                   <h3>{event.theme}</h3>
                   <div className="event-details">
                     <p>
-                      <strong>Location:</strong> {event.location}
+                      <strong>{t.location}</strong> {event.location}
                     </p>
                     <p>
-                      <strong>Date & Time:</strong>{' '}
-                      {new Date(event.date_time).toLocaleString()}
+                      <strong>{t.dateTime}</strong>{' '}
+                      {new Date(event.date_time).toLocaleString(language === 'fr' ? 'fr-CA' : 'en-US')}
                     </p>
                     <p>
-                      <strong>Places Available:</strong> {event.places_available}
+                      <strong>{t.placesAvailable}</strong> {event.places_available}
                     </p>
                     <p>
-                      <strong>Price:</strong> ${event.price}
+                      <strong>{t.price}</strong> ${event.price}
                     </p>
                   </div>
                   <button
@@ -190,10 +201,10 @@ function UserDashboard() {
                     disabled={registeringEvent === event.id || event.places_available === 0}
                   >
                     {registeringEvent === event.id
-                      ? 'Registering...'
+                      ? t.registering
                       : event.places_available === 0
-                      ? 'Sold Out'
-                      : 'Register Now'}
+                      ? t.soldOut
+                      : t.registerNow}
                   </button>
                 </div>
               ))}
@@ -203,7 +214,7 @@ function UserDashboard() {
 
         {/* Personal Updates Section */}
         <section className="dashboard-section">
-          <h2>Updates from Those We've Helped</h2>
+          <h2>{t.updatesFromThoseWeHelped}</h2>
           <div className="updates-list">
             {personalUpdates.map((update, index) => (
               <div key={index} className="update-card">

@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations/translations';
 import { createDonation } from '../services/firestore';
 import PaymentForm from '../components/PaymentForm';
+import Header from '../components/Header';
 import './DonationPage.css';
 
 function DonationPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState('');
   const [recurring, setRecurring] = useState(false);
@@ -15,44 +20,44 @@ function DonationPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const donationAmounts = [
+  const donationAmounts = useMemo(() => [
     {
       amount: 10,
-      description: 'A donation of $10 would buy a meal for women and children',
+      description: t.donation10,
       image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&fit=crop',
     },
     {
       amount: 25,
-      description: 'A donation of $25 would buy clothing for women and children',
+      description: t.donation25,
       image: 'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400&fit=crop',
     },
     {
       amount: 50,
-      description: 'A donation of $50 would provide a week of groceries for a family',
+      description: t.donation50,
       image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&fit=crop',
     },
     {
       amount: 100,
-      description: 'A donation of $100 would help cover utility bills for a month',
+      description: t.donation100,
       image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&fit=crop',
     },
     {
       amount: 250,
-      description: 'A donation of $250 would provide emergency housing assistance',
+      description: t.donation250,
       image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&fit=crop',
     },
     {
       amount: 500,
-      description: 'A donation of $500 would support educational programs for children',
+      description: t.donation500,
       image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&fit=crop',
     },
-  ];
+  ], [t]);
 
   const handleDonate = () => {
     const amount = selectedAmount || parseFloat(customAmount);
     
     if (!amount || amount <= 0) {
-      setError('Please select or enter a valid donation amount');
+      setError(t.pleaseSelectValidAmount);
       return;
     }
 
@@ -81,12 +86,12 @@ function DonationPage() {
             recurring: recurring,
             description: selectedAmount
               ? donationAmounts.find((d) => d.amount === selectedAmount)?.description
-              : `A donation of $${amount}`,
+              : language === 'fr' ? `Un don de $${amount}` : `A donation of $${amount}`,
           },
         },
       });
     } catch (err) {
-      setError(err.message || 'Payment failed. Please try again.');
+      setError(err.message || t.donationFailed);
       setLoading(false);
     }
   };
@@ -123,48 +128,10 @@ function DonationPage() {
 
   return (
     <div className="donation-page">
+      <Header navItems={[]} />
       <div className="donation-container">
-        <h1>Make a Donation</h1>
-        <p className="donation-subtitle">
-          Your contribution makes a real difference in people's lives
-        </p>
-
-        {!user && (
-          <div className="login-benefits">
-            <h3>Benefits of Creating an Account</h3>
-            <div className="benefit-item">
-              <img
-                src="/kids_drawing.jpg"
-                alt="Child's drawing"
-                className="benefit-image"
-              />
-              <p>
-                <strong>For a donation of at least $25</strong>, we will send you a
-                drawing from a child helped by the organization.
-              </p>
-            </div>
-            <div className="benefit-item">
-              <img
-                src="/dinner_table.jpg"
-                alt="Donor community event"
-                className="benefit-image"
-              />
-              <p>
-                <strong>Donor community / fundraising events</strong> where you can
-                socialize and meet like-minded people (restaurant nights, hikes, etc.)
-              </p>
-            </div>
-            <button
-              className="create-account-btn"
-              onClick={() => navigate('/auth')}
-            >
-              Create an Account
-            </button>
-          </div>
-        )}
-
         <div className="donation-amounts">
-          <h2>Choose Your Donation Amount</h2>
+          <h2>{t.chooseDonationAmount}</h2>
           <div className="amount-grid">
             {donationAmounts.map((item) => (
               <div
@@ -187,7 +154,7 @@ function DonationPage() {
           </div>
 
           <div className="custom-amount-section">
-            <h3>Or enter a custom amount:</h3>
+            <h3>{t.orEnterCustomAmount}</h3>
             <div className="custom-amount-input">
               <span>$</span>
               <input
@@ -197,7 +164,7 @@ function DonationPage() {
                   setCustomAmount(e.target.value);
                   setSelectedAmount(null);
                 }}
-                placeholder="Enter amount"
+                placeholder={t.enterAmount}
                 min="1"
                 step="0.01"
               />
@@ -211,7 +178,7 @@ function DonationPage() {
                 checked={recurring}
                 onChange={(e) => setRecurring(e.target.checked)}
               />
-              <span>Make this a recurring monthly donation</span>
+              <span>{t.makeRecurringMonthly}</span>
             </label>
           </div>
 
@@ -222,9 +189,41 @@ function DonationPage() {
             onClick={handleDonate}
             disabled={loading || !amount || amount <= 0}
           >
-            {loading ? 'Processing...' : 'Continue to Payment'}
+            {loading ? t.processing : t.donateNow}
           </button>
         </div>
+
+        {!user && (
+          <div className="login-benefits">
+            <h3>{t.benefitsOfCreatingAccount}</h3>
+            <div className="benefit-item">
+              <img
+                src="/kids_drawing.jpg"
+                alt="Child's drawing"
+                className="benefit-image"
+              />
+              <p>
+                <strong>{t.donationBenefit1}</strong>
+              </p>
+            </div>
+            <div className="benefit-item">
+              <img
+                src="/dinner_table.jpg"
+                alt="Donor community event"
+                className="benefit-image"
+              />
+              <p>
+                <strong>{t.donationBenefit2}</strong>
+              </p>
+            </div>
+            <button
+              className="create-account-btn"
+              onClick={() => navigate('/auth')}
+            >
+              {t.createAccount}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
