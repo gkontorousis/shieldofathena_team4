@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations/translations';
+import Header from '../components/Header';
 import './ThankYouPage.css';
 
 function ThankYouPage() {
@@ -34,6 +35,7 @@ function ThankYouPage() {
   if (!donation) {
     return (
       <div className="thank-you-page">
+        <Header navItems={[]} />
         <div className="thank-you-container">
           <h1>{t.thankYou}</h1>
           <p>{t.donationReceived}</p>
@@ -45,6 +47,7 @@ function ThankYouPage() {
 
   return (
     <div className="thank-you-page">
+      <Header navItems={[]} />
       <div className="thank-you-container">
         <div className="thank-you-icon">✓</div>
         <h1>{t.thankYouForDonation}</h1>

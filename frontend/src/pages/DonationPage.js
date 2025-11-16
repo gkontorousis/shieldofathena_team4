@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations/translations';
 import { createDonation } from '../services/firestore';
+import Header from '../components/Header';
 import './DonationPage.css';
 
 function DonationPage() {
@@ -84,6 +85,7 @@ function DonationPage() {
 
   return (
     <div className="donation-page">
+      <Header navItems={[]} />
       <div className="donation-container">
         <div className="donation-amounts">
           <h2>{t.chooseDonationAmount}</h2>
