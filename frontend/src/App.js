@@ -5,6 +5,7 @@ import AuthPage from './pages/AuthPage';
 import DonationPage from './pages/DonationPage';
 import ThankYouPage from './pages/ThankYouPage';
 import UserDashboard from './pages/UserDashboard';
+import Payment from './pages/Payment';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import './App.css';
 
@@ -30,6 +31,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </Router>
     </AuthProvider>

@@ -160,45 +160,75 @@ function UserDashboard() {
         {/* Events Section */}
         <section className="dashboard-section">
           <h2>Fundraising Community Events</h2>
-          {loading ? (
-            <p>Loading events...</p>
-          ) : events.length === 0 ? (
-            <p className="no-data">No upcoming events at this time.</p>
-          ) : (
-            <div className="events-grid">
-              {events.map((event) => (
-                <div key={event.id} className="event-card">
-                  <h3>{event.theme}</h3>
-                  <div className="event-details">
-                    <p>
-                      <strong>Location:</strong> {event.location}
-                    </p>
-                    <p>
-                      <strong>Date & Time:</strong>{' '}
-                      {new Date(event.date_time).toLocaleString()}
-                    </p>
-                    <p>
-                      <strong>Places Available:</strong> {event.places_available}
-                    </p>
-                    <p>
-                      <strong>Price:</strong> ${event.price}
-                    </p>
-                  </div>
-                  <button
-                    className="register-btn"
-                    onClick={() => handleEventRegister(event.id, event.price)}
-                    disabled={registeringEvent === event.id || event.places_available === 0}
-                  >
-                    {registeringEvent === event.id
-                      ? 'Registering...'
-                      : event.places_available === 0
-                      ? 'Sold Out'
-                      : 'Register Now'}
-                  </button>
-                </div>
-              ))}
+
+          <div className="events-grid">
+            {/* Past Event */}
+            <div className="event-card">
+              <h3>2025 Annual Lilac Gala</h3>
+              <div className="event-details">
+                <p><strong>Date & Time:</strong> November 29, 2025</p>
+                <p><strong>Location:</strong> Downtown Banquet Hall</p>
+                <p><strong>Description:</strong> Elegant dinner, silent auction, and raffle. Celebrating 34 years helping victims of family violence.</p>
+                <p><strong>Status:</strong> Event completed</p>
+              </div>
             </div>
-          )}
+
+            {/* Future Event - Full */}
+            <div className="event-card">
+              <h3>Winter Charity Hike</h3>
+              <div className="event-details">
+                <p><strong>Date & Time:</strong> December 15, 2025</p>
+                <p><strong>Location:</strong> Maple Forest Trails</p>
+                <p><strong>Description:</strong> Guided winter hike with hot chocolate at the summit.</p>
+                <p><strong>Places Available:</strong> 0</p>
+                <p><strong>Price:</strong> $20</p>
+              </div>
+              <button className="register-btn" disabled>
+                Registration Full
+              </button>
+            </div>
+
+            {/* Future Event - Open */}
+            <div className="event-card">
+              <h3>Spring Community Cleanup</h3>
+              <div className="event-details">
+                <p><strong>Date & Time:</strong> April 10, 2025</p>
+                <p><strong>Location:</strong> City Park</p>
+                <p><strong>Description:</strong> Volunteer cleanup of local park with refreshments provided.</p>
+                <p><strong>Places Available:</strong> 20</p>
+                <p><strong>Price:</strong> Free</p>
+              </div>
+              <button
+                className="register-btn"
+                onClick={() => navigate('/payment')}
+              >
+                Click here to register and pay
+              </button>
+            </div>
+
+            {/* Another Future Event - Open */}
+            <div className="event-card">
+              <h3>Summer Garden Tour</h3>
+              <div className="event-details">
+                <p><strong>Date & Time:</strong> July 8, 2025</p>
+                <p><strong>Location:</strong> Community Botanical Gardens</p>
+                <p><strong>Description:</strong> Guided tour with refreshments and a silent auction.</p>
+                <p><strong>Places Available:</strong> 10</p>
+                <p><strong>Price:</strong> $15</p>
+              </div>
+              <button
+                className="register-btn"
+                onClick={() => navigate('/payment')}
+              >
+                Click here to register and pay
+              </button>
+            </div>
+          </div>
+
+          {/* Load More Button */}
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <button className="register-btn" disabled>Load More</button>
+          </div>
         </section>
 
         {/* Personal Updates Section */}
