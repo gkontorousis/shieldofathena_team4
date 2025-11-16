@@ -146,9 +146,103 @@
   color: #1a1a1a;
   line-height: 1.8;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .achievement-spending strong {
   color: #a493b5;
   font-weight: 700;
+}
+
+.budget-breakdown {
+  margin-top: 25px;
+  padding: 25px;
+  background: linear-gradient(135deg, rgba(164, 147, 181, 0.08) 0%, rgba(184, 169, 199, 0.05) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(164, 147, 181, 0.15);
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(164, 147, 181, 0.1);
+  transition: all 0.3s ease;
+}
+
+.achievement-card:hover .budget-breakdown {
+  background: linear-gradient(135deg, rgba(164, 147, 181, 0.12) 0%, rgba(184, 169, 199, 0.08) 100%);
+  box-shadow: 0 6px 20px rgba(164, 147, 181, 0.15);
+  transform: translateY(-2px);
+}
+
+.budget-breakdown-title {
+  font-size: 17px;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+
+.budget-breakdown-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.budget-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  border-left: 4px solid #a493b5;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.budget-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, rgba(164, 147, 181, 0.1), transparent);
+  transition: width 0.3s ease;
+}
+
+.budget-item:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(164, 147, 181, 0.15);
+  border-left-color: #b8a9c7;
+}
+
+.budget-item:hover::before {
+  width: 100%;
+}
+
+.budget-item:last-child {
+  margin-bottom: 0;
+}
+
+.budget-amount {
+  font-weight: 700;
+  color: #7a6a8b;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #a493b5 0%, #b8a9c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  min-width: 100px;
+  text-align: right;
+}
+
+.budget-category {
+  color: #4a5568;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 12px;
 }

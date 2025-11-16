@@ -4,45 +4,63 @@ import './AchievementsSection.css';
 function AchievementsSection() {
   const achievements = [
     {
-      month: 'January 2025',
-      description: 'Provided safe housing assistance to 15 women and their families, and distributed 200 meals to those in need.',
+      month: 'October 2024',
+      description: 'Launched multilingual counseling services and provided emergency shelter to 20 women and their children fleeing domestic violence.',
       images: [
-        'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&fit=crop',
+        'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&fit=crop',
+        'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&fit=crop',
         'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&fit=crop',
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&fit=crop',
       ],
       spending: {
-        total: 5000,
-        donors: 100,
-        medianDonation: 55,
+        total: 5500,
+        donors: 95,
+        medianDonation: 58,
+        breakdown: [
+          { category: 'Emergency Shelter', amount: 2000 },
+          { category: 'Food & Meals', amount: 1500 },
+          { category: 'Counseling Services', amount: 1200 },
+          { category: 'Transportation', amount: 800 },
+        ],
       },
     },
     {
-      month: 'December 2024',
-      description: 'Organized support groups and provided educational resources to 50 children and their mothers.',
+      month: 'September 2024',
+      description: 'Conducted community outreach programs and provided legal assistance to 25 women navigating protection orders and custody cases.',
       images: [
+        'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&fit=crop',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&fit=crop',
         'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&fit=crop',
+      ],
+      spending: {
+        total: 4800,
+        donors: 88,
+        medianDonation: 55,
+        breakdown: [
+          { category: 'Legal Assistance', amount: 1800 },
+          { category: 'Community Outreach', amount: 1500 },
+          { category: 'Transportation', amount: 1000 },
+          { category: 'Volunteer Expenses', amount: 500 },
+        ],
+      },
+    },
+    {
+      month: 'August 2024',
+      description: 'Organized empowerment workshops and support groups for 40 women, while providing childcare services and educational resources for their children.',
+      images: [
+        'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&fit=crop',
         'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&fit=crop',
         'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&fit=crop',
       ],
       spending: {
-        total: 4500,
-        donors: 85,
-        medianDonation: 60,
-      },
-    },
-    {
-      month: 'November 2024',
-      description: 'Emergency support and counseling services for 30 women and their families in crisis.',
-      images: [
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&fit=crop',
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&fit=crop',
-        'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&fit=crop',
-      ],
-      spending: {
-        total: 6000,
-        donors: 120,
-        medianDonation: 50,
+        total: 5200,
+        donors: 102,
+        medianDonation: 51,
+        breakdown: [
+          { category: 'Food & Meals', amount: 2000 },
+          { category: 'Childcare Services', amount: 1500 },
+          { category: 'Educational Resources', amount: 1000 },
+          { category: 'Workshop Materials', amount: 700 },
+        ],
       },
     },
   ];
@@ -75,6 +93,19 @@ function AchievementsSection() {
                 <strong>{achievement.spending.donors} donors</strong> with a median
                 donation of <strong>${achievement.spending.medianDonation}</strong>.
               </p>
+              <div className="budget-breakdown">
+                <p className="budget-breakdown-title">
+                  The ${achievement.spending.total.toLocaleString()} spent this month went towards:
+                </p>
+                <ul className="budget-breakdown-list">
+                  {achievement.spending.breakdown.map((item, idx) => (
+                    <li key={idx} className="budget-item">
+                      <span className="budget-amount">${item.amount.toLocaleString()}</span>
+                      <span className="budget-category">for {item.category}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         ))}
