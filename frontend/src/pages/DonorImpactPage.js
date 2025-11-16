@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./DonorImpactPage.css";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations/translations';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -13,53 +15,51 @@ const COSTS = {
 
 function DonorImpactPage({ totalDonation = 300 }) {
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
   const shelterNights = Math.floor(totalDonation / COSTS.shelterNight);
   const meals = Math.floor(totalDonation / COSTS.meal);
   const crisisSessions = Math.floor(totalDonation / COSTS.crisisSession);
   const therapyHours = Math.floor(totalDonation / COSTS.therapyHour);
 
-  const impactItems = [
+  const impactItems = useMemo(() => [
     {
       id: "shelter",
-      title: "Shelter Nights",
+      title: t.shelterNights,
       value: shelterNights,
-      description:
-        "Nights of safety in a protected environment, giving families peace and dignity.",
+      description: t.shelterNightsDescription,
       image:
         "https://imageio.forbes.com/specials-images/imageserve/1208448710/GERMANY-HEALTH-VIRUS/960x0.jpg?format=jpg&width=960",
-      alt: "A safe and warm shelter room",
+      alt: language === 'fr' ? "Une chambre d'hébergement sûre et chaleureuse" : "A safe and warm shelter room",
     },
     {
       id: "meals",
-      title: "Meals Shared",
+      title: t.mealsShared,
       value: meals,
-      description:
-        "Nutritious meals that bring comfort and remind survivors they are not alone.",
+      description: t.mealsSharedDescription,
       image:
         "https://fortune.com/img-assets/wp-content/uploads/2022/10/GettyImages-1355162946-e1665508487320.jpeg",
-      alt: "Warm meal served to someone in need",
+      alt: language === 'fr' ? "Repas chaud servi à une personne dans le besoin" : "Warm meal served to someone in need",
     },
     {
       id: "crisis",
-      title: "Crisis Sessions",
+      title: t.crisisSessions,
       value: crisisSessions,
-      description:
-        "Immediate emotional support at the moment someone feels heard, safe, and supported.",
+      description: t.crisisSessionsDescription,
       image:
         "https://www.verywellmind.com/thmb/xe-jiigBBKsTBeoQT4vLrCtH8Eo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1316037109-befbf7445a0d4fb28c0b81685520ae1e.jpg",
-      alt: "Crisis counselor talking to a survivor",
+      alt: language === 'fr' ? "Conseiller en crise parlant à une survivante" : "Crisis counselor talking to a survivor",
     },
     {
       id: "therapy",
-      title: "Therapy Hours",
+      title: t.therapyHours,
       value: therapyHours,
-      description:
-        "Hours of healing where survivors rebuild confidence and rediscover hope.",
+      description: t.therapyHoursDescription,
       image:
         "https://www.headwayclinic.ca/wp-content/uploads/2024/11/Therapy-session-abstract-e1732998959192.webp",
-      alt: "Therapy session fostering healing and growth",
+      alt: language === 'fr' ? "Séance de thérapie favorisant la guérison et la croissance" : "Therapy session fostering healing and growth",
     },
-  ];
+  ], [t, shelterNights, meals, crisisSessions, therapyHours, language]);
 
   const [visibleCount, setVisibleCount] = useState(3);
 
@@ -105,18 +105,16 @@ function DonorImpactPage({ totalDonation = 300 }) {
     <Header />
     <div className="donor-impact-page">
       <header className="impact-header">
-        <h1>Your Impact This Month</h1>
+        <h1>{t.yourImpactThisMonth}</h1>
         <p>
-          Because of your generosity, women and children in crisis found safety,
-          warmth, and someone to listen. Here is what your{" "}
-          <span className="impact-amount">${totalDonation}</span> has made
-          possible this month.
+          {t.impactHeaderText1}{" "}
+          <span className="impact-amount">${totalDonation}</span> {t.impactHeaderText2}
         </p>
       </header>
 
       <section className="impact-summary">
         <div className="impact-summary-card">
-          <h2>Lives Touched</h2>
+          <h2>{t.livesTouched}</h2>
           <p className="impact-summary-number">
             {shelterNights +
               crisisSessions +
@@ -124,7 +122,7 @@ function DonorImpactPage({ totalDonation = 300 }) {
               Math.floor(meals / 10)}
           </p>
           <p className="impact-summary-text">
-            families slept safely, shared warm meals, and began to heal.
+            {t.livesTouchedDescription}
           </p>
         </div>
       </section>
@@ -158,26 +156,25 @@ function DonorImpactPage({ totalDonation = 300 }) {
                   : "impact-dot"
               }
               onClick={() => handleDotClick(index)}
-              aria-label={`Go to slide ${index + 1}`}
+              aria-label={language === 'fr' ? `Aller à la diapositive ${index + 1}` : `Go to slide ${index + 1}`}
             />
           ))}
         </div>
       </section>
 
       <section className="impact-cta">
-        <h2>Every Extra Dollar Deepens Your Impact</h2>
+        <h2>{t.everyExtraDollarDeepens}</h2>
         <p>
-          Another night of shelter, another warm meal, another voice on the
-          crisis line. Your continued support keeps these doors open.
+          {t.impactCTAText}
         </p>
         <button
           className="impact-donate-btn"
           onClick={() => navigate("/donate")}
         >
-          Donate
+          {t.donate}
         </button>
         <button className="back-dashboard-btn" onClick={() => navigate("/dashboard")}>
-          ← Back to Dashboard
+          ← {t.backToDashboard}
         </button>
       </section>
       

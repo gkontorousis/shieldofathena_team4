@@ -5,6 +5,7 @@ import ReactPlayer from 'react-player';
 import './LandingPage.css';
 import PixelatedImage from '../components/PixelatedImage';
 import AchievementsSection from '../components/AchievementsSection';
+import UpcomingEventsSection from '../components/UpcomingEventsSection';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -17,6 +18,7 @@ function LandingPage() {
     { label: t.mission, sectionId: 'mission-section' },
     { label: t.mysteryImage, sectionId: 'mystery-section' },
     { label: t.monthlyUpdates, sectionId: 'monthly-updates' },
+    { label: t.upcomingEvents, sectionId: 'upcoming-events' },
   ];
 
   const playerConfig = useMemo(() => ({
@@ -81,6 +83,8 @@ function LandingPage() {
       </section>
 
       <AchievementsSection />
+      
+      <UpcomingEventsSection />
       
       <Footer />
     </div>

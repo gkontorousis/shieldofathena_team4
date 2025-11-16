@@ -123,7 +123,7 @@ function UserDashboard() {
           <button 
             className="donate-btn" 
             onClick={() => navigate('/my-impact')}>
-            View Your Impact So Far
+            {t.viewYourImpactSoFar}
           </button>
           <button className="logout-btn" onClick={logout}>
             {t.logout}
