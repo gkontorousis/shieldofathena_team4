@@ -26,6 +26,8 @@ export const translations = {
     facebook: 'Facebook',
     backToHome: 'Back to Home',
     anUnexpectedErrorOccurred: 'An unexpected error occurred',
+    wrongEmailOrPassword: 'Wrong email or password',
+    emailAlreadyInUse: 'This email is already in use',
     
     // Donation Page
     makeADonation: 'Make a Donation',
@@ -199,6 +201,8 @@ export const translations = {
     facebook: 'Facebook',
     backToHome: 'Retour à l\'Accueil',
     anUnexpectedErrorOccurred: 'Une erreur inattendue s\'est produite',
+    wrongEmailOrPassword: 'Courriel ou mot de passe incorrect',
+    emailAlreadyInUse: 'Ce courriel est déjà utilisé',
     
     // Donation Page
     makeADonation: 'Faire un Don',
