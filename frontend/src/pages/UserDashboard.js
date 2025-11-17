@@ -4,10 +4,12 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations/translations';
 import { getUserDonations, getEvents, registerForEvent, getUserData } from '../services/firestore';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import './UserDashboard.css';
 
 function UserDashboard() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const { language } = useLanguage();
   const t = translations[language] || translations.en;
@@ -79,10 +81,10 @@ function UserDashboard() {
 
   const donationExamples = useMemo(() => ({
     10: { image: 'https://images.unsplash.com/photo-1488521787991-6625b2ba0e01?w=200', text: t.mealForWomenAndChildren },
-    25: { image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=200', text: t.clothingForWomenAndChildren },
+    25: { image: '/pic3.png', text: t.clothingForWomenAndChildren },
     50: { image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200', text: t.weekOfGroceries },
     100: { image: 'https://images.unsplash.com/photo-1488521787991-6625b2ba0e01?w=200', text: t.utilityBills },
-    250: { image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=200', text: t.emergencyHousing },
+    250: { image: 'pic8.png', text: t.emergencyHousing },
     500: { image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200', text: t.educationalPrograms },
     1000: { image: 'https://images.unsplash.com/photo-1488521787991-6625b2ba0e01?w=200', text: t.comprehensiveSupport },
   }), [t]);
@@ -99,21 +101,27 @@ function UserDashboard() {
 
   const personalUpdates = [
     {
-      date: '2023-11-15',
-      message: 'Thank you to all our donors! Your support helped us provide housing for 5 families this month. One family shared: "We finally have a safe place to call home. Thank you for giving us hope."',
+      date: '2025-01-28',
+      message: `"Because of your support, my children and I finally sleep without fear. It’s the first time we’ve felt this safe in years."`,
     },
     {
-      date: '2023-11-10',
-      message: 'The children in our program are thriving! Thanks to your donations, we were able to provide school supplies and tutoring. One child said: "I love learning now! Thank you for helping me."',
+      date: '2025-01-20',
+      message: `"Your help gave my daughter the supplies she needed for school. She comes home smiling every day now — thank you for giving her hope."`,
     },
     {
-      date: '2023-11-05',
-      message: 'Emergency food assistance reached 50 families this week. A recipient shared: "This food means my children won\'t go to bed hungry. We are so grateful."',
+      date: '2025-01-12',
+      message: `"The food assistance came at the perfect time. Knowing my kids will eat tonight brings me a peace I haven’t felt in a long while."`,
     },
-  ];
+  ];  
 
   return (
     <div className="user-dashboard">
+       <Header showDashboardNav={[
+        { id: 'donation-history', label: t.yourDonationHistory },
+        { id: 'community-events', label: t.fundraisingCommunityEvents },
+        { id: 'personal-updates', label: t.updatesFromThoseWeHelped },
+      ]}
+    />
       <div className="dashboard-header">
         <h1>{t.welcome} {userData?.name || user?.displayName || t.user}!</h1>
         <div className="header-actions">
@@ -123,17 +131,14 @@ function UserDashboard() {
           <button 
             className="donate-btn" 
             onClick={() => navigate('/my-impact')}>
-            View Your Impact So Far
-          </button>
-          <button className="logout-btn" onClick={logout}>
-            {t.logout}
+            {t.viewYourImpactSoFar || 'View Your Impact So Far'}
           </button>
         </div>
       </div>
 
       <div className="dashboard-content">
         {/* Donation History Section */}
-        <section className="dashboard-section">
+        <section className="dashboard-section" id="donation-history">
           <h2>{t.yourDonationHistory}</h2>
           <div className="total-donated">
             <h3>{t.totalDonated} ${totalDonated.toLocaleString()}</h3>
@@ -167,7 +172,7 @@ function UserDashboard() {
         </section>
 
         {/* Events Section */}
-        <section className="dashboard-section">
+        <section className="dashboard-section" id="community-events">
           <h2>{t.fundraisingCommunityEvents}</h2>
           {loading ? (
             <p>{t.loadingEvents}</p>
@@ -211,7 +216,7 @@ function UserDashboard() {
         </section>
 
         {/* Personal Updates Section */}
-        <section className="dashboard-section">
+        <section className="dashboard-section" id="personal-updates">
           <h2>{t.updatesFromThoseWeHelped}</h2>
           <div className="updates-list">
             {personalUpdates.map((update, index) => (
@@ -223,6 +228,7 @@ function UserDashboard() {
           </div>
         </section>
       </div>
+      <Footer />
     </div>
   );
 }
