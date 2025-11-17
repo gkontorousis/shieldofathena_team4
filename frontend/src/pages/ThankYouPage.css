@@ -5,8 +5,23 @@
   align-items: center;
   padding: 40px 20px;
   padding-top: 100px;
-  background: #ffffff;
+  background: linear-gradient(135deg, #faf9fc 0%, #f5f3f8 100%);
   position: relative;
+  overflow: hidden;
+}
+
+.thank-you-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(164, 147, 181, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(184, 169, 199, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .thank-you-container {
@@ -16,64 +31,86 @@
   padding: 60px;
   max-width: 700px;
   width: 100%;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(164, 147, 181, 0.2);
   text-align: center;
-  border: 1px solid rgba(37, 99, 235, 0.1);
+  border: 2px solid rgba(164, 147, 181, 0.1);
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .thank-you-icon {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #a493b5 0%, #b8a9c7 100%);
   color: white;
   font-size: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 30px;
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 8px 24px rgba(164, 147, 181, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.thank-you-icon:hover {
+  transform: scale(1.1);
 }
 
 .thank-you-container h1 {
-  color: #1a1a1a;
   font-size: 40px;
   margin-bottom: 20px;
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #a493b5 0%, #b8a9c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: transform 0.3s ease;
+}
+
+.thank-you-container h1:hover {
+  transform: scale(1.05);
 }
 
 .thank-you-message {
   font-size: 20px;
-  color: #4a5568;
+  color: #7a6a8b;
   margin-bottom: 40px;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .donation-summary {
-  background: rgba(37, 99, 235, 0.05);
+  background: rgba(164, 147, 181, 0.05);
   border-radius: 20px;
   padding: 30px;
   margin-bottom: 30px;
   text-align: left;
-  border: 1px solid rgba(37, 99, 235, 0.1);
+  border: 2px solid rgba(164, 147, 181, 0.1);
+  transition: all 0.3s ease;
+}
+
+.donation-summary:hover {
+  border-color: rgba(164, 147, 181, 0.3);
+  box-shadow: 0 4px 20px rgba(164, 147, 181, 0.15);
 }
 
 .donation-summary h2 {
-  color: #1a1a1a;
   margin-bottom: 24px;
   text-align: center;
   font-size: 24px;
   font-weight: 700;
+  background: linear-gradient(135deg, #a493b5 0%, #b8a9c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .summary-item {
   display: flex;
   justify-content: space-between;
   padding: 16px 0;
-  border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+  border-bottom: 1px solid rgba(164, 147, 181, 0.1);
 }
 
 .summary-item:last-child {
@@ -82,50 +119,58 @@
 
 .summary-label {
   font-weight: 500;
-  color: #4a5568;
+  color: #7a6a8b;
 }
 
 .summary-value {
   font-weight: 700;
-  color: #2563eb;
+  color: #a493b5;
 }
 
 .create-account-prompt {
-  background: rgba(37, 99, 235, 0.05);
+  background: rgba(164, 147, 181, 0.05);
   border-radius: 20px;
   padding: 30px;
   margin-bottom: 30px;
-  border: 1px solid rgba(37, 99, 235, 0.1);
+  border: 2px solid rgba(164, 147, 181, 0.1);
+  transition: all 0.3s ease;
+}
+
+.create-account-prompt:hover {
+  border-color: rgba(164, 147, 181, 0.3);
+  box-shadow: 0 4px 20px rgba(164, 147, 181, 0.15);
 }
 
 .create-account-prompt h3 {
-  color: #1a1a1a;
+  color: #7a6a8b;
   margin-bottom: 12px;
   font-weight: 700;
 }
 
 .create-account-prompt p {
-  color: #4a5568;
+  color: #7a6a8b;
   margin-bottom: 20px;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .create-account-btn {
   padding: 14px 30px;
-  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #a493b5 0%, #b8a9c7 100%);
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 30px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 24px rgba(164, 147, 181, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .create-account-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(164, 147, 181, 0.4);
+  background: linear-gradient(135deg, #b8a9c7 0%, #a493b5 100%);
 }
 
 .share-section {
@@ -133,15 +178,16 @@
 }
 
 .share-section h3 {
-  color: #1a1a1a;
+  color: #7a6a8b;
   margin-bottom: 12px;
   font-weight: 700;
 }
 
 .share-section p {
-  color: #4a5568;
+  color: #7a6a8b;
   margin-bottom: 24px;
   font-size: 14px;
+  line-height: 1.6;
 }
 
 .social-share-buttons {
@@ -153,57 +199,65 @@
 
 .share-btn {
   padding: 12px 24px;
-  border: 2px solid rgba(37, 99, 235, 0.2);
+  border: 2px solid rgba(164, 147, 181, 0.3);
   background: white;
-  border-radius: 12px;
+  border-radius: 30px;
   cursor: pointer;
   font-size: 14px;
   transition: all 0.3s ease;
-  color: #4a5568;
-  font-weight: 500;
+  color: #7a6a8b;
+  font-weight: 600;
 }
 
 .share-btn:hover {
-  border-color: #2563eb;
-  background: rgba(37, 99, 235, 0.05);
+  border-color: rgba(164, 147, 181, 0.6);
+  background: rgba(164, 147, 181, 0.1);
   transform: translateY(-2px);
+  color: #a493b5;
+  box-shadow: 0 4px 12px rgba(164, 147, 181, 0.2);
 }
 
 .action-buttons {
   display: flex;
   gap: 15px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .home-btn,
 .dashboard-btn {
-  padding: 14px 30px;
+  padding: 16px 32px;
   border: none;
-  border-radius: 12px;
+  border-radius: 30px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.5px;
 }
 
 .home-btn {
-  background: rgba(37, 99, 235, 0.1);
-  color: #2563eb;
-  border: 2px solid rgba(37, 99, 235, 0.2);
+  background: transparent;
+  color: #7a6a8b;
+  border: 2px solid rgba(164, 147, 181, 0.3);
 }
 
 .home-btn:hover {
-  background: rgba(37, 99, 235, 0.15);
+  background: rgba(164, 147, 181, 0.1);
+  border-color: rgba(164, 147, 181, 0.6);
+  color: #a493b5;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(164, 147, 181, 0.2);
 }
 
 .dashboard-btn {
-  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #a493b5 0%, #b8a9c7 100%);
   color: white;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 6px 24px rgba(164, 147, 181, 0.3);
 }
 
 .dashboard-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(164, 147, 181, 0.4);
+  background: linear-gradient(135deg, #b8a9c7 0%, #a493b5 100%);
 }

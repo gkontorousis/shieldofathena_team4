@@ -1,0 +1,314 @@
+/* Override Embla CSS for Mosaic Component */
+.embla {
+  max-width: 100%;
+  margin: auto;
+  --slide-height: auto;
+  --slide-spacing: 2rem;
+  --slide-size: 100%;
+  padding: 0 20px;
+}
+
+.embla-progress {
+  margin-bottom: 30px;
+  text-align: center;
+  padding: auto;
+}
+
+.embla-progress h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: #a493b5;
+  font-weight: 600;
+}
+
+.embla-progress-bar {
+  width: 100%;
+  max-width: 600px;
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+}
+
+.embla-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #a493b5, #b8a9c7);
+  transition: width 0.5s ease;
+  border-radius: 6px;
+}
+
+.embla-progress p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.embla-viewport {
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.embla-container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  margin-left: calc(var(--slide-spacing) * -1);
+  align-items: center;
+}
+
+.embla-slide {
+  transform: translate3d(0, 0, 0);
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  padding-left: var(--slide-spacing);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.embla-slide-content {
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.embla-slide-content h4 {
+  font-size: 20px;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+}
+
+.embla-slide-content-incompleted {
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+  font-weight: 400;
+}
+
+.embla-slide-content-completed {
+  font-size: 18px;
+  color: #a493b5;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Remove the number styling*/
+.embla-slide-number {
+  display: none;
+}
+
+/* Pixelated Canvas Wrapper */
+.pixelated-canvas-wrapper {
+  position: relative;
+  display: inline-block;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f5f5;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.pixelated-canvas-wrapper canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Progress Overlay */
+.pixel-progress-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+  min-width: 200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.pixel-count {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.pixel-percentage {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* Controls styling */
+.embla-controls {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+  padding: 0 20px;
+}
+
+.embla-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.embla-button {
+  -webkit-tap-highlight-color: rgba(164, 147, 181, 0.3);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: white;
+  touch-action: manipulation;
+  display: inline-flex;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #e0e0e0;
+  padding: 0;
+  margin: 0;
+  width: 3.6rem;
+  height: 3.6rem;
+  z-index: 1;
+  border-radius: 50%;
+  color: #a493b5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.embla-button:hover:not(:disabled) {
+  background-color: #a493b5;
+  color: white;
+  border-color: #a493b5;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(164, 147, 181, 0.3);
+}
+
+.embla-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background-color: #f5f5f5;
+  color: #ccc;
+}
+
+.embla-button-svg {
+  width: 40%;
+  height: 40%;
+}
+
+.embla-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.embla-dot {
+  -webkit-tap-highlight-color: rgba(164, 147, 181, 0.3);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  touch-action: manipulation;
+  display: inline-flex;
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.embla-dot:hover {
+  transform: scale(1.2);
+}
+
+.embla-dot:after {
+  box-shadow: inset 0 0 0 0.2rem #d0d0d0;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  content: "";
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+.embla-dot-selected:after {
+  box-shadow: inset 0 0 0 0.2rem #a493b5;
+  background-color: #a493b5;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .embla {
+    padding: 0 10px;
+  }
+
+  .embla-slide {
+    --slide-spacing: 1rem;
+  }
+
+  .pixelated-canvas-wrapper canvas {
+    max-width: 400px;
+  }
+
+  .embla-controls {
+    padding: 0 10px;
+    margin-top: 2rem;
+  }
+
+  .embla-button {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pixelated-canvas-wrapper canvas {
+    max-width: 320px;
+  }
+
+  .embla-button {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+  .embla-dot {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .embla-controls {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .embla-dots {
+    justify-content: center;
+  }
+}
