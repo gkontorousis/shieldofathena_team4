@@ -370,6 +370,15 @@
   filter: grayscale(0);
 }
 
+.event-card-footer {
+  padding: 0 30px 30px 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+
 .register-btn {
   width: 100%;
   padding: 16px;
@@ -394,6 +403,22 @@
 .register-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.registered-badge {
+  width: 100%;
+  padding: 16px;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 16px;
+  text-align: center;
+  font-weight: 700;
+  margin-top: 20px;
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .updates-list {
