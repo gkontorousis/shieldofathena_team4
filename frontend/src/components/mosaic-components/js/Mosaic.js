@@ -5,12 +5,12 @@ import "../css/mosaic-custom.css";
 
 const OPTIONS = {
   loop: false,
-  align: "start",
+  align: "center",
   skipSnaps: false,
   dragFree: false,
 };
 
-// Define your 5 images here - All from Unsplash (free to use)
+// Define images
 const SLIDES = [
   {
     pixelwidth: 10,

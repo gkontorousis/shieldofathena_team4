@@ -6,17 +6,21 @@
   --slide-size: 100%;
 }
 .embla-viewport {
-  overflow: hidden;
+  overflow: visible;
+  padding: 0 40px;
 }
 .embla-container {
   display: flex;
   touch-action: pan-y pinch-zoom;
   margin-left: calc(var(--slide-spacing) * -1);
+  gap: 2rem;
 }
 .embla-slide {
   transform: translate3d(0, 0, 0);
-  flex: 0 0 var(--slide-size);
+  /* flex: 0 0 var(--slide-size); */
+  flex: 0 0 75%;
   min-width: 0;
+  justify-content: center;
   padding-left: var(--slide-spacing);
 }
 .embla-slide-number {

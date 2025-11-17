@@ -8,11 +8,16 @@ import {
 import useEmblaCarousel from "embla-carousel-react";
 import { getTotalDonations } from "../../../services/firestore.js";
 
-const PIXELS_PER_IMAGE = 100; // 10x10 grid
+const GRID_SIZE = 20;
 const COST_PER_PIXEL = 10; // $10 per pixel
-const TOTAL_COST_PER_IMAGE = PIXELS_PER_IMAGE * COST_PER_PIXEL; // $1000
-const GRID_SIZE = 10;
+const PIXELS_PER_IMAGE = GRID_SIZE * GRID_SIZE;
+const TOTAL_COST_PER_IMAGE = PIXELS_PER_IMAGE * COST_PER_PIXEL;
 const CANVAS_SIZE = 500; // size (px) for each square canvas
+
+const TWEEN_FACTOR_BASE = 0.52;
+
+const numberWithinRange = (number, min, max) =>
+  Math.min(Math.max(number, min), max);
 
 const MosaicFrame = (props) => {
   const { slides, options } = props;
@@ -20,6 +25,10 @@ const MosaicFrame = (props) => {
   const [totalDonations, setTotalDonations] = useState(0);
   const [processedImages, setProcessedImages] = useState([]);
   const canvasRefs = useRef([]);
+
+  // Tween refs
+  const tweenFactor = useRef(0);
+  const tweenNodes = useRef([]);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
@@ -31,32 +40,29 @@ const MosaicFrame = (props) => {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
 
-  // 1. Fetch total donations from Firestore
-  // useEffect(() => {
-  //   const fetchDonations = async () => {
-  //     try {
-  //       const data = await getTotalDonations();
-  //       const amount = data?.total_amount;
-
-  //       // If there is no valid amount, fallback to 1250 for POC
-  //       if (typeof amount === "number" && !Number.isNaN(amount) && amount > 0) {
-  //         setTotalDonations(amount);
-  //       } else {
-  //         setTotalDonations(1250); // example 1250
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching donations:", error);
-  //       setTotalDonations(1250); // also fallback
-  //     }
-  //   };
-
-  //   fetchDonations();
-  //   const interval = setInterval(fetchDonations, 30000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  // 1. Fetch total donations from Firestore (real data)
   useEffect(() => {
-    // test mosaic
-    setTotalDonations(1250);
+    const fetchDonations = async () => {
+      try {
+        const data = await getTotalDonations(); // from services/firestore
+        const amount = data?.total_amount;
+
+        if (typeof amount === "number" && !Number.isNaN(amount)) {
+          setTotalDonations(amount);
+        } else {
+          setTotalDonations(0);
+        }
+      } catch (error) {
+        console.error("Error fetching donations:", error);
+        setTotalDonations(0); // fallback
+      }
+    };
+
+    fetchDonations();
+
+    // poll every 30s
+    const interval = setInterval(fetchDonations, 30000);
+    return () => clearInterval(interval);
   }, []);
 
   // 2. Auto choose slide based on totalDonations
@@ -154,7 +160,7 @@ const MosaicFrame = (props) => {
       if (!canvas || !slide) return;
 
       const ctx = canvas.getContext("2d");
-      const { origCanvas } = slide; // blurCanvas không dùng nữa
+      const { origCanvas } = slide; // blurCanvas (dont use anymore but still keep it there)
 
       const width = CANVAS_SIZE;
       const height = CANVAS_SIZE;
@@ -207,7 +213,53 @@ const MosaicFrame = (props) => {
     });
   }, [processedImages, getPixelsRevealedForSlide]);
 
-  // 6. Component render canvas + overlay text
+  // 6. Tween scale setup
+  const setTweenNodes = useCallback((emblaApiInstance) => {
+    // direct scale for .embla-slide
+    tweenNodes.current = emblaApiInstance.slideNodes();
+  }, []);
+
+  const setTweenFactor = useCallback((emblaApiInstance) => {
+    tweenFactor.current =
+      TWEEN_FACTOR_BASE * emblaApiInstance.scrollSnapList().length;
+  }, []);
+
+  const tweenScale = useCallback((emblaApiInstance) => {
+    const scrollProgress = emblaApiInstance.scrollProgress();
+
+    emblaApiInstance.scrollSnapList().forEach((scrollSnap, snapIndex) => {
+      let diffToTarget = scrollSnap - scrollProgress;
+      const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
+
+      // scale in range 0.85-1
+      const scale = numberWithinRange(tweenValue, 0.85, 1).toString();
+
+      const tweenNode = tweenNodes.current[snapIndex];
+      if (tweenNode) {
+        tweenNode.style.transform = `scale(${scale})`;
+        tweenNode.style.transition = "transform 0.2s ease-out";
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    setTweenNodes(emblaApi);
+    setTweenFactor(emblaApi);
+    tweenScale(emblaApi);
+
+    emblaApi
+      .on("reInit", (api) => {
+        setTweenNodes(api);
+        setTweenFactor(api);
+        tweenScale(api);
+      })
+      .on("scroll", tweenScale)
+      .on("select", tweenScale);
+  }, [emblaApi, setTweenNodes, setTweenFactor, tweenScale]);
+
+  // 7. Component render canvas + overlay text
   const renderBlurMosaicCanvas = (slide, index) => {
     const pixelsRevealed = getPixelsRevealedForSlide(index);
 
@@ -274,10 +326,12 @@ const MosaicFrame = (props) => {
                 {/* CTA text */}
                 {getPixelsRevealedForSlide(index) < PIXELS_PER_IMAGE && (
                   <p className="embla-slide-content-incompleted">
-                    Donate $
+                    {/* Your support matters. $
                     {TOTAL_COST_PER_IMAGE -
                       getPixelsRevealedForSlide(index) * COST_PER_PIXEL}{" "}
-                    more to complete this image!
+                    more brings another pieces of this image to life. */}
+                    Each contribution helps unlock another part of this shared
+                    mosaic of hope.
                   </p>
                 )}
 

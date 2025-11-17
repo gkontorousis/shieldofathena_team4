@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import ReactPlayer from "react-player";
 import "./LandingPage.css";
 // import PixelatedImage from "../components/PixelatedImage";
-import Mosaic from "../components/mosaic-components/js/Mosaic";
+import Mosaic from "../components/mosaic-components/js/Mosaic.js";
 import AchievementsSection from "../components/AchievementsSection";
 import Logo from "../components/Logo";
 
