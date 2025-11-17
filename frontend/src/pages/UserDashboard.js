@@ -24,7 +24,7 @@ import {
 import { db } from '../firebase/config';
 
 function UserDashboard() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const { language } = useLanguage();
   const t = translations[language] || translations.en;
@@ -95,13 +95,13 @@ function UserDashboard() {
   const totalDonated = donations.reduce((sum, d) => sum + d.amount, 0);
 
   const donationExamples = useMemo(() => ({
-    10: { image: 'https://images.unsplash.com/photo-1488521787991-6625b2ba0e01?w=200', text: t.mealForWomenAndChildren },
-    25: { image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=200', text: t.clothingForWomenAndChildren },
-    50: { image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200', text: t.weekOfGroceries },
-    100: { image: 'https://images.unsplash.com/photo-1488521787991-6625b2ba0e01?w=200', text: t.utilityBills },
-    250: { image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=200', text: t.emergencyHousing },
-    500: { image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200', text: t.educationalPrograms },
-    1000: { image: 'https://images.unsplash.com/photo-1488521787991-6625b2ba0e01?w=200', text: t.comprehensiveSupport },
+    10: { image: '/pic1.png', text: t.mealForWomenAndChildren },
+    25: { image: '/pic2.png', text: t.clothingForWomenAndChildren },
+    50: { image: '/pic3.png', text: t.weekOfGroceries },
+    100: { image: '/pic4.png', text: t.utilityBills },
+    250: { image: '/pic5.png', text: t.emergencyHousing },
+    500: { image: '/pic6.png', text: t.educationalPrograms },
+    1000: { image: '/pic7.png', text: t.comprehensiveSupport },
   }), [t]);
 
   const getDonationExample = (amount) => {
@@ -114,39 +114,36 @@ function UserDashboard() {
     return donationExamples[10];
   };
 
-  const personalUpdates = [
+  const personalUpdates = useMemo(() => [
     {
       date: '2023-11-15',
-      message: 'Thank you to all our donors! Your support helped us provide housing for 5 families this month. One family shared: "We finally have a safe place to call home. Thank you for giving us hope."',
+      message: t.updateMessage1,
     },
     {
       date: '2023-11-10',
-      message: 'The children in our program are thriving! Thanks to your donations, we were able to provide school supplies and tutoring. One child said: "I love learning now! Thank you for helping me."',
+      message: t.updateMessage2,
     },
     {
       date: '2023-11-05',
-      message: 'Emergency food assistance reached 50 families this week. A recipient shared: "This food means my children won\'t go to bed hungry. We are so grateful."',
+      message: t.updateMessage3,
     },
-  ];
+  ], [t]);
 
   return (
     <div className="user-dashboard">
       <Header navItems={[]} />
       <div className="dashboard-header">
         <h1>{t.welcome} {userData?.name || user?.displayName || t.user}!</h1>
-        <div className="header-actions">
-          <button className="donate-btn" onClick={() => navigate('/donate')}>
-            {t.makeAnotherDonation}
-          </button>
-          <button 
-            className="donate-btn" 
-            onClick={() => navigate('/my-impact')}>
-            {t.viewYourImpactSoFar}
-          </button>
-          <button className="logout-btn" onClick={() => {logout(); navigate('/')}}>
-            {t.logout}
-          </button>
-        </div>
+                <div className="header-actions">
+                  <button className="donate-btn" onClick={() => navigate('/donate')}>
+                    {t.makeAnotherDonation}
+                  </button>
+                  <button 
+                    className="donate-btn" 
+                    onClick={() => navigate('/my-impact')}>
+                    {t.viewYourImpactSoFar}
+                  </button>
+                </div>
       </div>
 
       <div className="dashboard-content">
@@ -186,11 +183,15 @@ function UserDashboard() {
 
 
 {/* Events Section */}
-<section className="dashboard-section">
-  <h2>Fundraising Community Events</h2>
+<section className="dashboard-section" id="community-events">
+  <h2>{t.fundraisingCommunityEvents}</h2>
 
   <div className="events-grid">
-    {events.map(event => {
+    {events.filter(event => {
+      const themeLower = (event.theme || '').toLowerCase();
+      // Remove events that contain both "fundraiser" and "dinner", but keep elegant dinner events
+      return !(themeLower.includes('fundraiser') && themeLower.includes('dinner'));
+    }).map(event => {
       // Robust date parsing
       let eventDate = null;
 
@@ -215,46 +216,85 @@ function UserDashboard() {
       const availablePlaces = event.places_available ?? 0;
       const isFull = availablePlaces <= 0;
 
+      // Get event image based on theme or use default
+      const getEventImage = (theme) => {
+        const themeLower = (theme || '').toLowerCase();
+        if (themeLower.includes('cleanup') || themeLower.includes('spring cleanup')) {
+          return '/cleanup.avif';
+        } else if (themeLower.includes('dinner') || themeLower.includes('gala') || themeLower.includes('fundraising')) {
+          return '/dinner_table.jpg';
+        } else if (themeLower.includes('hiking') || themeLower.includes('outdoor') || themeLower.includes('walk')) {
+          return 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&h=400&fit=crop';
+        } else if (themeLower.includes('workshop') || themeLower.includes('empower') || themeLower.includes('education')) {
+          return 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&h=400&fit=crop';
+        }
+        return 'https://images.unsplash.com/photo-1533174072545-7a0b44013246?w=600&h=400&fit=crop';
+      };
+
       return (
         <div key={event.id} className="event-card">
-          <h3>{event.theme || "Untitled Event"}</h3>
+          <div className="event-image-container">
+            <img
+              src={getEventImage((language === 'fr' && event.theme_fr) ? event.theme_fr : event.theme)}
+              alt={(language === 'fr' && event.theme_fr) ? event.theme_fr : (event.theme || t.event)}
+              className="event-image"
+            />
+          </div>
+          <div className="event-card-content">
+            <h3>{(language === 'fr' && event.theme_fr) ? event.theme_fr : (event.theme || t.untitledEvent)}</h3>
 
-          <div className="event-details">
-            <p>
-              <strong>Date & Time:</strong>{" "}
-              {eventDate.toLocaleString(
-                language === 'fr' ? 'fr-CA' : 'en-US',
-                { dateStyle: 'medium', timeStyle: 'short' }
-              )}
-            </p>
-            <p><strong>Location:</strong> {event.location || "Location not available"}</p>
-            <p><strong>Places Available:</strong> {availablePlaces}</p>
-            <p><strong>Price:</strong> {event.price != null ? `$${event.price}` : "Price not available"}</p>
+            <div className="event-details">
+              <div className="event-info-item">
+                <span className="event-info-label">📅</span>
+                <span>
+                  {eventDate.toLocaleString(
+                    language === 'fr' ? 'fr-CA' : 'en-US',
+                    { dateStyle: 'medium', timeStyle: 'short' }
+                  )}
+                </span>
+              </div>
+              <div className="event-info-item">
+                <span className="event-info-label">📍</span>
+                <span>{(language === 'fr' && event.location_fr) ? event.location_fr : (event.location || t.locationNotAvailable)}</span>
+              </div>
+              <div className="event-info-item">
+                <span className="event-info-label">👥</span>
+                <span>{t.placesAvailable} {availablePlaces}</span>
+              </div>
+              <div className="event-info-item">
+                <span className="event-info-label">💰</span>
+                <span>{event.price != null ? `$${event.price}` : t.priceNotAvailable}</span>
+              </div>
+            </div>
           </div>
 
           {/* Registration Button */}
-          {isFull ? (
-            <button className="register-btn" disabled>
-              Registration Full
-            </button>
-          ) : (
-            <button
-              className="register-btn"
-              onClick={() =>
-                navigate('/PaymentForm', {
-                  state: {
-                    amount: event.price,
-                    title: event.theme,
-                    description: `Register for ${event.theme}`,
-                    paymentType: 'event',
-                    eventId: event.id
-                  }
-                })
-              }
-            >
-              Click here to register and pay
-            </button>
-          )}
+          <div style={{ padding: '0 30px 30px 30px' }}>
+            {isFull ? (
+              <button className="register-btn" disabled>
+                {t.registrationFull}
+              </button>
+            ) : (
+              <button
+                className="register-btn"
+                onClick={() =>
+                  navigate('/PaymentForm', {
+                    state: {
+                      amount: event.price,
+                      title: (language === 'fr' && event.theme_fr) ? event.theme_fr : event.theme,
+                      description: language === 'fr' 
+                        ? `S'inscrire à ${(event.theme_fr || event.theme)}` 
+                        : `Register for ${event.theme}`,
+                      paymentType: 'event',
+                      eventId: event.id
+                    }
+                  })
+                }
+              >
+                {t.clickToRegister}
+              </button>
+            )}
+          </div>
         </div>
       );
     })}
@@ -262,7 +302,7 @@ function UserDashboard() {
 
   <div style={{ textAlign: "center", marginTop: "20px" }}>
     <button className="register-btn" disabled>
-      Load More
+      {t.loadMore}
     </button>
   </div>
 </section>
