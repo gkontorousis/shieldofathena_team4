@@ -44,7 +44,7 @@ function DonationPage() {
     {
       amount: 250,
       description: t.donation250,
-      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&fit=crop',
+      image: 'https://i.imgur.com/KnHJrDQ.jpeg',
     },
     {
       amount: 500,
