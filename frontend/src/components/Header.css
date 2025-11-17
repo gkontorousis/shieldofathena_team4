@@ -97,6 +97,26 @@
   margin-left: auto;
 }
 
+.header-actions-fr {
+  gap: 4px;
+}
+
+.header-actions-fr .header-login-btn,
+.header-actions-fr .header-my-account-btn,
+.header-actions-fr .header-donate-btn,
+.header-actions-fr .header-contact-btn,
+.header-actions-fr .logout-btn {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.header-actions-fr .language-dropdown-btn {
+  padding: 8px 10px;
+  font-size: 13px;
+  min-width: 80px;
+  max-width: 110px;
+}
+
 .language-dropdown {
   position: relative;
 }
@@ -313,6 +333,96 @@
   transform: translateY(0);
 }
 
+.header-my-account-btn {
+  background: linear-gradient(135deg, #a493b5 0%, #b8a9c7 100%);
+  color: white;
+  border: none;
+  padding: 9px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(164, 147, 181, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.header-my-account-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%
+  );
+  animation: shimmerRotate 3s linear infinite;
+}
+
+.header-my-account-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(164, 147, 181, 0.4);
+  background: linear-gradient(135deg, #b8a9c7 0%, #a493b5 100%);
+}
+
+.header-my-account-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 20px rgba(164, 147, 181, 0.3);
+}
+
+.logout-btn {
+  background: transparent;
+  color: #7a6a8b;
+  border: 2px solid rgba(164, 147, 181, 0.2);
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.logout-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(164, 147, 181, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.logout-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.logout-btn:hover {
+  border-color: rgba(164, 147, 181, 0.6);
+  background: rgba(164, 147, 181, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(164, 147, 181, 0.2);
+}
+
+.logout-btn:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 1200px) {
   .header-logo {
     max-width: min(250px, 20vw);
@@ -328,6 +438,19 @@
 
   .header-actions {
     gap: 10px;
+  }
+
+  .header-actions-fr {
+    gap: 5px;
+  }
+
+  .header-actions-fr .header-login-btn,
+  .header-actions-fr .header-my-account-btn,
+  .header-actions-fr .header-donate-btn,
+  .header-actions-fr .header-contact-btn,
+  .header-actions-fr .logout-btn {
+    padding: 8px 14px;
+    font-size: 13px;
   }
 
   .header-nav {
@@ -355,12 +478,22 @@
     font-size: 14px;
   }
 
+  .header-my-account-btn {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+
   .header-donate-btn {
     padding: 10px 20px;
     font-size: 15px;
   }
 
   .header-contact-btn {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+
+  .logout-btn {
     padding: 8px 18px;
     font-size: 14px;
   }
@@ -404,6 +537,10 @@
     margin-top: 12px;
     margin-left: 0;
   }
+
+  .header-actions-fr {
+    gap: 4px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -441,6 +578,19 @@
     margin-top: 10px;
   }
 
+  .header-actions-fr {
+    gap: 4px;
+  }
+
+  .header-actions-fr .header-login-btn,
+  .header-actions-fr .header-my-account-btn,
+  .header-actions-fr .header-donate-btn,
+  .header-actions-fr .header-contact-btn,
+  .header-actions-fr .logout-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
   .language-dropdown-btn {
     min-width: 85px;
     padding: 6px 12px;
@@ -453,12 +603,22 @@
     font-size: 13px;
   }
 
+  .header-my-account-btn {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+
   .header-donate-btn {
     padding: 8px 16px;
     font-size: 14px;
   }
 
   .header-contact-btn {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+
+  .logout-btn {
     padding: 6px 14px;
     font-size: 13px;
   }
@@ -514,6 +674,13 @@
     min-width: 0;
   }
 
+  .header-my-account-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    flex: 1;
+    min-width: 0;
+  }
+
   .header-donate-btn {
     padding: 8px 14px;
     font-size: 13px;
@@ -522,6 +689,13 @@
   }
 
   .header-contact-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .logout-btn {
     padding: 6px 12px;
     font-size: 12px;
     flex: 1;

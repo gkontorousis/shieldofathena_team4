@@ -144,7 +144,7 @@ function Header({ navItems = [], showDashboardNav = false }) {
         )}
 
         {/* Right actions: language + My Account / Login + Donate */}
-        <div className="header-actions">
+        <div className={`header-actions ${language === 'fr' ? 'header-actions-fr' : ''}`}>
           <div className="language-dropdown" ref={languageDropdownRef}>
             <button
               className="language-dropdown-btn"
@@ -177,7 +177,7 @@ function Header({ navItems = [], showDashboardNav = false }) {
     
           {/* This acts as the "My Account" button on homepage when user is logged in */}
           <button
-                className="header-login-btn"
+                className={user ? "header-my-account-btn" : "header-login-btn"}
                 onClick={() => navigate(user ? '/dashboard' : '/auth')}
               >
                 {user ? t.myAccount || 'My Account' : t.logInRegister}
@@ -199,8 +199,8 @@ function Header({ navItems = [], showDashboardNav = false }) {
           )}
           {user && (
             <button
-              className="logout-btn"
-              onClick={logout}
+              className="header-login-btn"
+              onClick={() => {logout(); navigate('/')}}
             >
               {t.logout}
             </button>

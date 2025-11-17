@@ -5,7 +5,6 @@ import { useAuth } from "../context/AuthContext";
 import { translations } from "../translations/translations";
 import ReactPlayer from "react-player";
 import "./LandingPage.css";
-import PixelatedImage from "../components/PixelatedImage";
 import AchievementsSection from "../components/AchievementsSection";
 import UpcomingEventsSection from "../components/UpcomingEventsSection";
 import Mosaic from "../components/mosaic-components/js/Mosaic.js";
@@ -15,27 +14,25 @@ import { useState, useEffect } from "react";
 import { getEvents } from "../services/firestore";
 
 function LandingPage() {
-  const navigate = useNavigate();
   const { user } = useAuth();
   const { language } = useLanguage();
   const t = translations[language] || translations.en;
   const englishVideo = "https://youtu.be/-3sc4QkwaxE";
   const frenchVideo = "https://youtu.be/o5scm1xrxYA";
   const videoUrl = language === "fr" ? frenchVideo : englishVideo;
-  const [events, setEvents] = useState([]);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const allEvents = await getEvents();
-        setEvents(allEvents);
-      } catch (error) {
-        console.error("Failed to fetch events:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchEvents = async () => {
+  //     try {
+  //       const allEvents = await getEvents();
+  //       setEvents(allEvents);
+  //     } catch (error) {
+  //       console.error("Failed to fetch events:", error);
+  //     }
+  //   };
 
-    fetchEvents();
-  }, []);
+  //   fetchEvents();
+  // }, []);
 
   const navItems = [
     { label: t.mission, sectionId: "mission-section" },
@@ -124,55 +121,7 @@ function LandingPage() {
 
       <AchievementsSection />
 
-      <section id="upcoming-events" className="upcoming-events-section">
-        <h2>{t.upcomingEvents}</h2>
-        <div className="events-grid">
-          {events.length === 0 ? (
-            <p>
-              {language === "fr"
-                ? "Aucun événement à venir"
-                : "No upcoming events"}
-            </p>
-          ) : (
-            events
-              .filter((e) => e.date_time && e.date_time > new Date())
-              .map((event) => (
-                <div key={event.id} className="event-card">
-                  <h3>
-                    {event.theme ||
-                      (language === "fr"
-                        ? "Événement sans titre"
-                        : "Untitled Event")}
-                  </h3>
-                  <p>
-                    <strong>
-                      {language === "fr" ? "Date & Heure" : "Date & Time"}:
-                    </strong>{" "}
-                    {event.date_time.toLocaleString(
-                      language === "fr" ? "fr-CA" : "en-US",
-                      { dateStyle: "medium", timeStyle: "short" }
-                    )}
-                  </p>
-                  <p>
-                    <strong>{language === "fr" ? "Lieu" : "Location"}:</strong>{" "}
-                    {event.location ||
-                      (language === "fr"
-                        ? "Lieu non disponible"
-                        : "Location not available")}
-                  </p>
-                  <p>
-                    <strong>{language === "fr" ? "Prix" : "Price"}:</strong>{" "}
-                    {event.price != null
-                      ? `$${event.price}`
-                      : language === "fr"
-                      ? "Prix non disponible"
-                      : "Price not available"}
-                  </p>
-                </div>
-              ))
-          )}
-        </div>
-      </section>
+      <UpcomingEventsSection />
 
       <Footer />
     </div>
