@@ -33,7 +33,9 @@ function LandingPage() {
         iv_load_policy: 3,
         playsinline: 1,
         enablejsapi: 1,
-        origin: window.location.origin
+        origin: window.location.origin,
+        showinfo: 0,
+        fs: 0,
       },
       embedOptions: {
         modestbranding: 1

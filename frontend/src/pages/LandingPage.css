@@ -7,15 +7,14 @@
 
 .video-section {
   width: 100%;
-  min-height: calc(100vh - 80px);
   position: relative;
   background: linear-gradient(135deg, #f5f3f8 0%, #faf9fc 100%);
   overflow: hidden;
   margin-top: 80px;
-  padding: 5.5% 1.5%;
+  padding: 3.5% 1.5%;
   box-sizing: border-box;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -85,7 +84,7 @@
 
 @media (max-width: 768px) {
   .video-section {
-    padding: 5% 2%;
+    padding: 15px 2%;
   }
   
   .video-container {
@@ -96,7 +95,7 @@
 
 @media (max-width: 480px) {
   .video-section {
-    padding: 5% 1.5%;
+    padding: 10px 1.5%;
   }
   
   .video-container {
