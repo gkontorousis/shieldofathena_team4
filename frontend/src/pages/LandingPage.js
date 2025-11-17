@@ -1,42 +1,22 @@
 import React, { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { useAuth } from "../context/AuthContext";
 import { translations } from "../translations/translations";
 import ReactPlayer from "react-player";
 import "./LandingPage.css";
-import PixelatedImage from "../components/PixelatedImage";
 import AchievementsSection from "../components/AchievementsSection";
 import UpcomingEventsSection from "../components/UpcomingEventsSection";
-import Mosaic from "../components/mosaic-components/js/Mosaic.js";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useState, useEffect } from "react";
-import { getEvents } from "../services/firestore";
-
+import Mosaic from "../components/mosaic-components/js/Mosaic.js";
 
 function LandingPage() {
-  const navigate = useNavigate();
   const { user } = useAuth();
   const { language } = useLanguage();
   const t = translations[language] || translations.en;
   const englishVideo = "https://youtu.be/-3sc4QkwaxE";
   const frenchVideo = "https://youtu.be/o5scm1xrxYA";
   const videoUrl = language === "fr" ? frenchVideo : englishVideo;
-  const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const allEvents = await getEvents();
-        setEvents(allEvents);
-      } catch (error) {
-        console.error("Failed to fetch events:", error);
-      }
-    };
-
-    fetchEvents();
-  }, []);
 
   const navItems = [
     { label: t.mission, sectionId: "mission-section" },
@@ -124,13 +104,12 @@ function LandingPage() {
       </section>
 
       <AchievementsSection />
-      
+
       <UpcomingEventsSection />
-      
+
       <Footer />
     </div>
   );
 }
 
 export default LandingPage;
-
