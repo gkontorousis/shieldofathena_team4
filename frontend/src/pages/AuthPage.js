@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations/translations';
+import Header from '../components/Header';
 import './AuthPage.css';
 
 function AuthPage() {
@@ -10,8 +13,17 @@ function AuthPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, register, loginWithGoogle, loginWithFacebook } = useAuth();
+  const { login, register, loginWithGoogle, loginWithFacebook, user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
+  // Redirect if already authenticated (e.g., after OAuth redirect)
+  useEffect(() => {
+    if (!authLoading && user) {
+      navigate('/dashboard');
+    }
+  }, [user, authLoading, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,10 +41,17 @@ function AuthPage() {
       if (result.success) {
         navigate('/dashboard');
       } else {
-        setError(result.error);
+        console.log(result.error);
+        if (result.error.includes('auth/invalid-credential')) {
+          setError(t.wrongEmailOrPassword);
+        } else if (result.error.includes('auth/email-already-in-use')) {
+          setError(t.emailAlreadyInUse);
+        } else {
+          setError(result.error);
+        }
       }
     } catch (err) {
-      setError('An unexpected error occurred');
+      setError(t.anUnexpectedErrorOccurred);
     } finally {
       setLoading(false);
     }
@@ -40,21 +59,22 @@ function AuthPage() {
 
   return (
     <div className="auth-page">
+      <Header navItems={[]} />
       <div className="auth-container">
-        <h1>{isLogin ? 'Log In' : 'Sign Up'}</h1>
+        <h1>{isLogin ? t.logIn : t.signUp}</h1>
         
         <div className="auth-tabs">
           <button
             className={isLogin ? 'active' : ''}
             onClick={() => setIsLogin(true)}
           >
-            Log In
+            {t.logIn}
           </button>
           <button
             className={!isLogin ? 'active' : ''}
             onClick={() => setIsLogin(false)}
           >
-            Sign Up
+            {t.signUp}
           </button>
         </div>
 
@@ -63,7 +83,7 @@ function AuthPage() {
         <form onSubmit={handleSubmit} className="auth-form">
           {!isLogin && (
             <div className="form-group">
-              <label>Name</label>
+              <label>{t.name}</label>
               <input
                 type="text"
                 value={name}
@@ -74,7 +94,7 @@ function AuthPage() {
           )}
           
           <div className="form-group">
-            <label>Email</label>
+            <label>{t.email}</label>
             <input
               type="email"
               value={email}
@@ -84,7 +104,7 @@ function AuthPage() {
           </div>
           
           <div className="form-group">
-            <label>Password</label>
+            <label>{t.password}</label>
             <input
               type="password"
               value={password}
@@ -94,12 +114,12 @@ function AuthPage() {
           </div>
 
           <button type="submit" className="submit-btn" disabled={loading}>
-            {loading ? 'Processing...' : isLogin ? 'Log In' : 'Sign Up'}
+            {loading ? t.processing : isLogin ? t.logIn : t.signUp}
           </button>
         </form>
 
         <div className="social-auth">
-          <p>Or continue with:</p>
+          <p>{t.orContinueWith}</p>
           <div className="social-buttons">
             <button 
               className="social-btn google-btn" 
@@ -109,19 +129,21 @@ function AuthPage() {
                 try {
                   const result = await loginWithGoogle();
                   if (result.success) {
+                    setLoading(false);
                     navigate('/dashboard');
                   } else {
                     setError(result.error);
+                    setLoading(false);
                   }
                 } catch (err) {
-                  setError('An unexpected error occurred');
+                  setError(t.anUnexpectedErrorOccurred);
                 } finally {
                   setLoading(false);
                 }
               }}
               disabled={loading}
             >
-              Google
+              {t.google}
             </button>
             <button 
               className="social-btn facebook-btn"
@@ -131,25 +153,27 @@ function AuthPage() {
                 try {
                   const result = await loginWithFacebook();
                   if (result.success) {
+                    setLoading(false);
                     navigate('/dashboard');
                   } else {
                     setError(result.error);
+                    setLoading(false);
                   }
                 } catch (err) {
-                  setError('An unexpected error occurred');
+                  setError(t.anUnexpectedErrorOccurred);
                 } finally {
                   setLoading(false);
                 }
               }}
               disabled={loading}
             >
-              Facebook
+              {t.facebook}
             </button>
           </div>
         </div>
 
         <button className="back-btn" onClick={() => navigate('/')}>
-          Back to Home
+          {t.backToHome}
         </button>
       </div>
     </div>

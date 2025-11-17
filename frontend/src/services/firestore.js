@@ -53,7 +53,7 @@ export const getUserDonations = async (userId) => {
 
 export const getTotalDonations = async () => {
   try {
-    const totalDoc = await getDoc(doc(db, 'stats', 'donations'));
+    const totalDoc = await getDoc(doc(db, 'donations'));
     if (totalDoc.exists()) {
       const data = totalDoc.data();
       const totalAmount = data.total_amount || 0;
@@ -97,8 +97,7 @@ export const getEvents = async () => {
     const events = querySnapshot.docs
       .map(doc => ({
         id: doc.id,
-        ...doc.data(),
-        date_time: doc.data().date_time?.toDate() || new Date()
+        ...doc.data()
       }))
       .filter(event => event.date_time > now)
       .sort((a, b) => a.date_time - b.date_time);
