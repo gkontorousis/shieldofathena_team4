@@ -8,7 +8,7 @@ import {
 import useEmblaCarousel from "embla-carousel-react";
 import { getTotalDonations } from "../../../services/firestore.js";
 
-const GRID_SIZE = 20;
+const GRID_SIZE = 50;
 const COST_PER_PIXEL = 10; // $10 per pixel
 const PIXELS_PER_IMAGE = GRID_SIZE * GRID_SIZE;
 const TOTAL_COST_PER_IMAGE = PIXELS_PER_IMAGE * COST_PER_PIXEL;
@@ -330,8 +330,8 @@ const MosaicFrame = (props) => {
                     {TOTAL_COST_PER_IMAGE -
                       getPixelsRevealedForSlide(index) * COST_PER_PIXEL}{" "}
                     more brings another pieces of this image to life. */}
-                    Each contribution helps unlock another part of this shared
-                    mosaic of hope.
+                    Together, we reveal this image piece by piece. Your support
+                    makes a real difference.
                   </p>
                 )}
 

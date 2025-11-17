@@ -16,7 +16,7 @@ function LandingPage() {
 
   const navItems = [
     { label: t.mission, sectionId: "mission-section" },
-    { label: t.mysteryImage, sectionId: "mystery-section" },
+    { label: t.mysteryImage, sectionId: "mosaic-section" },
     { label: t.monthlyUpdates, sectionId: "monthly-updates" },
     { label: t.upcomingEvents, sectionId: "upcoming-events" },
   ];
@@ -85,12 +85,13 @@ function LandingPage() {
         </div>
       </section> */}
 
-      <section className="mosaic-section">
+      <section className="mosaic-section" id="mosaic-section">
         <div className="mosaic-content">
-          <h2>Uncover the Mystery</h2>
+          <h2>{t.uncoverMystery}</h2>
           <p>
-            Every $10 you donate will reveal a new pixel of this hidden image.
-            Help us uncover the full picture of hope and change!
+            {/* Every $10 you donate will reveal a new pixel of this hidden image.
+            Help us uncover the full picture of hope and change! */}
+            {t.mysteryText}
           </p>
           <Mosaic />
         </div>
