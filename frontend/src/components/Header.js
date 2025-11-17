@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations/translations';
@@ -8,7 +8,6 @@ import './Header.css';
 
 function Header({ navItems = [], showDashboardNav = false }) {
   const navigate = useNavigate();
-  const location = useLocation();
   const { user, logout } = useAuth();
   const { language, setLanguage } = useLanguage();
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
@@ -100,7 +99,7 @@ function Header({ navItems = [], showDashboardNav = false }) {
       <div className="header-content">
         {/* Logo that goes to homepage */}
         <div
-          className="header-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}
+          className="header-logo"
           onClick={() => navigate('/')}
           style={{ cursor: 'pointer' }}
         >
@@ -109,7 +108,6 @@ function Header({ navItems = [], showDashboardNav = false }) {
 
         {/* Middle nav: either dashboard sections or regular nav items */}
         {showDashboardNav && user ? (
-        {isLandingPage && (
           <nav className="header-nav">
             {dashboardNavItems.map((item, index) => (
               <button
@@ -122,7 +120,7 @@ function Header({ navItems = [], showDashboardNav = false }) {
             ))}
           </nav>
         ) : (
-          navItems.length > 0 && (
+          isLandingPage && (
             <nav className="header-nav">
               {navItems.map((item, index) => (
                 <button

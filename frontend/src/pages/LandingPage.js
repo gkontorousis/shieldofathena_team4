@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useMemo} from 'react';
+import { useNavigate } from "react-router-dom";
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import { translations } from '../translations/translations';
@@ -81,12 +82,6 @@ function LandingPage() {
 
         {user && (
           <div className="video-overlay-button">
-            <button 
-              className="my-account-btn"
-              onClick={() => navigate('/dashboard')}
-            >
-              {t.myAccount || 'My Account'}
-            </button>
           </div>
         )}
       </section>
