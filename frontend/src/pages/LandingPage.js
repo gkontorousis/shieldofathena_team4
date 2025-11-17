@@ -82,12 +82,6 @@ function LandingPage() {
 
         {user && (
           <div className="video-overlay-button">
-            <button 
-              className="my-account-btn"
-              onClick={() => navigate('/dashboard')}
-            >
-              {t.myAccount || 'My Account'}
-            </button>
           </div>
         )}
       </section>
