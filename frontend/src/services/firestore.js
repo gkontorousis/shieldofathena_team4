@@ -89,24 +89,63 @@ const updateTotalDonations = async (amount) => {
   }
 };
 
+
 export const getEvents = async () => {
   try {
-    const q = query(collection(db, 'events'));
+    const q = query(collection(db, "events"));
     const querySnapshot = await getDocs(q);
-    const now = new Date();
+
     const events = querySnapshot.docs
-      .map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }))
-      .filter(event => event.date_time > now)
-      .sort((a, b) => a.date_time - b.date_time);
+      .map((doc) => {
+        const data = doc.data();
+
+        // Handle places_available safely
+        const places_available = data.places_available != null ? data.places_available : 0;
+
+        // Robust timestamp handling
+        let date_time = null;
+        if (data.date_time) {
+          // Proper Firestore Timestamp
+          if (typeof data.date_time.toDate === "function") {
+            date_time = data.date_time.toDate();
+          }
+          // Raw Firestore timestamp object {_seconds, _nanoseconds}
+          else if (data.date_time._seconds != null) {
+            date_time = new Date(data.date_time._seconds * 1000);
+          }
+          // String or JS Date
+          else {
+            date_time = new Date(data.date_time);
+          }
+
+          // If invalid, leave as null (frontend can handle fallback)
+          if (isNaN(date_time.getTime())) {
+            console.warn(`Invalid date for event ${doc.id}:`, data.date_time);
+            date_time = null;
+          }
+        }
+
+        return {
+          id: doc.id,
+          ...data,
+          places_available,
+          date_time,
+        };
+      })
+      // Optional: sort by date, null dates at the end
+      .sort((a, b) => {
+        if (!a.date_time) return 1;
+        if (!b.date_time) return -1;
+        return a.date_time - b.date_time;
+      });
+
     return events;
   } catch (error) {
-    console.error('Error fetching events:', error);
+    console.error("Error fetching events:", error);
     throw error;
   }
 };
+
 
 export const registerForEvent = async (userId, eventId, eventPrice) => {
   try {
