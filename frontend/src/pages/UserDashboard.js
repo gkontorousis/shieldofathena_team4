@@ -308,31 +308,24 @@ function UserDashboard() {
             </div>
           </div>
 
-          {/* Registration Status */}
-          {isRegistered ? (
-            <div className="registered-badge" style={{
-              padding: '12px',
-              backgroundColor: '#4CAF50',
-              color: 'white',
-              borderRadius: '4px',
-              textAlign: 'center',
-              fontWeight: 'bold',
-              marginTop: '10px'
-            }}>
-              ✓ Registered
-            </div>
-          ) : isFull ? (
-            <button className="register-btn" disabled>
-              Registration Full
-            </button>
-          ) : (
-            <button
-              className="register-btn"
-              onClick={() => handleEventRegisterClick(event)}
-            >
-              Click here to register and pay
-            </button>
-          )}
+          <div className="event-card-footer">
+            {isRegistered ? (
+              <div className="registered-badge">
+                ✓ {t.successfullyRegistered}
+              </div>
+            ) : isFull ? (
+              <button className="register-btn" disabled>
+                {t.registrationFull}
+              </button>
+            ) : (
+              <button
+                className="register-btn"
+                onClick={() => handleEventRegisterClick(event)}
+              >
+                {t.clickToRegister}
+              </button>
+            )}
+          </div>
         </div>
       );
     })}
