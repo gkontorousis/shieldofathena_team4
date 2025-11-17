@@ -139,33 +139,6 @@ function UpcomingEventsSection() {
                   </div>
                 </div>
 
-                {/* Registration Button */}
-                <div style={{ padding: '0 30px 30px 30px' }}>
-                  {isFull ? (
-                    <button className="register-btn" disabled>
-                      {t.registrationFull}
-                    </button>
-                  ) : (
-                    <button
-                      className="register-btn"
-                      onClick={() =>
-                        navigate('/PaymentForm', {
-                          state: {
-                            amount: event.price,
-                            title: (language === 'fr' && event.theme_fr) ? event.theme_fr : event.theme,
-                            description: language === 'fr' 
-                              ? `S'inscrire à ${(event.theme_fr || event.theme)}` 
-                              : `Register for ${event.theme}`,
-                            paymentType: 'event',
-                            eventId: event.id
-                          }
-                        })
-                      }
-                    >
-                      {t.clickToRegister}
-                    </button>
-                  )}
-                </div>
               </div>
             );
           })}
