@@ -13,6 +13,9 @@ import Mosaic from "../components/mosaic-components/js/Mosaic.js";
 function LandingPage() {
   const { language } = useLanguage();
   const t = translations[language] || translations.en;
+  const englishVideo = "https://youtu.be/-3sc4QkwaxE";
+  const frenchVideo = "https://youtu.be/o5scm1xrxYA";
+  const videoUrl = language === "fr" ? frenchVideo : englishVideo;
 
   const navItems = [
     { label: t.mission, sectionId: "mission-section" },
@@ -53,7 +56,7 @@ function LandingPage() {
       <section className="video-section">
         <div className="video-container">
           <ReactPlayer
-            url="https://youtu.be/-3sc4QkwaxE"
+            url={videoUrl}
             playing={true}
             loop={true}
             muted={true}
