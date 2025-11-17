@@ -4,6 +4,7 @@ export const translations = {
     mission: 'Mission',
     mysteryImage: 'Mystery Image',
     monthlyUpdates: 'Monthly Updates',
+    upcomingEvents: 'Upcoming Events',
     logInRegister: 'Log in / Register',
     dashboard: 'Dashboard',
     donate: 'Donate',
@@ -25,6 +26,8 @@ export const translations = {
     facebook: 'Facebook',
     backToHome: 'Back to Home',
     anUnexpectedErrorOccurred: 'An unexpected error occurred',
+    wrongEmailOrPassword: 'Wrong email or password',
+    emailAlreadyInUse: 'This email is already in use',
     
     // Donation Page
     makeADonation: 'Make a Donation',
@@ -74,6 +77,11 @@ export const translations = {
     childcareServices: 'Childcare Services',
     educationalResources: 'Educational Resources',
     workshopMaterials: 'Workshop Materials',
+    
+    // Upcoming Events Section
+    upcomingEventsTitle: 'Upcoming Events',
+    upcomingEventsSubtitle: 'Join us for our upcoming community events and fundraisers',
+    viewAllEvents: 'View All Events',
     
     // Footer
     emergencyResources: 'Emergency Resources',
@@ -146,6 +154,25 @@ export const translations = {
     emergencyHousing: 'Emergency housing assistance',
     educationalPrograms: 'Educational programs for children',
     comprehensiveSupport: 'Comprehensive family support',
+    viewYourImpactSoFar: 'View Your Impact So Far',
+    
+    // Donor Impact Page
+    yourImpactThisMonth: 'Your Impact This Month',
+    impactHeaderText1: 'Because of your generosity, women and children in crisis found safety, warmth, and someone to listen. Here is what your',
+    impactHeaderText2: 'has made possible this month.',
+    livesTouched: 'Lives Touched',
+    livesTouchedDescription: 'families slept safely, shared warm meals, and began to heal.',
+    shelterNights: 'Shelter Nights',
+    shelterNightsDescription: 'Nights of safety in a protected environment, giving families peace and dignity.',
+    mealsShared: 'Meals Shared',
+    mealsSharedDescription: 'Nutritious meals that bring comfort and remind survivors they are not alone.',
+    crisisSessions: 'Crisis Sessions',
+    crisisSessionsDescription: 'Immediate emotional support at the moment someone feels heard, safe, and supported.',
+    therapyHours: 'Therapy Hours',
+    therapyHoursDescription: 'Hours of healing where survivors rebuild confidence and rediscover hope.',
+    everyExtraDollarDeepens: 'Every Extra Dollar Deepens Your Impact',
+    impactCTAText: 'Another night of shelter, another warm meal, another voice on the crisis line. Your continued support keeps these doors open.',
+    backToDashboard: 'Back to Dashboard',
 
     // Donor Impact Page
     impactTitle: "Your Impact This Month",
@@ -197,6 +224,7 @@ export const translations = {
     mission: 'Mission',
     mysteryImage: 'Image Mystère',
     monthlyUpdates: 'Mises à Jour Mensuelles',
+    upcomingEvents: 'Événements à Venir',
     logInRegister: 'Connexion / Inscription',
     dashboard: 'Tableau de Bord',
     donate: 'Faire un Don',
@@ -218,6 +246,8 @@ export const translations = {
     facebook: 'Facebook',
     backToHome: 'Retour à l\'Accueil',
     anUnexpectedErrorOccurred: 'Une erreur inattendue s\'est produite',
+    wrongEmailOrPassword: 'Courriel ou mot de passe incorrect',
+    emailAlreadyInUse: 'Ce courriel est déjà utilisé',
     
     // Donation Page
     makeADonation: 'Faire un Don',
@@ -267,6 +297,11 @@ export const translations = {
     childcareServices: 'Services de Garde d\'Enfants',
     educationalResources: 'Ressources Éducatives',
     workshopMaterials: 'Matériel d\'Atelier',
+    
+    // Upcoming Events Section
+    upcomingEventsTitle: 'Événements à Venir',
+    upcomingEventsSubtitle: 'Rejoignez-nous pour nos prochains événements communautaires et collectes de fonds',
+    viewAllEvents: 'Voir Tous les Événements',
     
     // Footer
     emergencyResources: 'Ressources d\'Urgence',
@@ -339,6 +374,25 @@ export const translations = {
     emergencyHousing: 'Aide au logement d\'urgence',
     educationalPrograms: 'Programmes éducatifs pour les enfants',
     comprehensiveSupport: 'Soutien complet à la famille',
+    viewYourImpactSoFar: 'Voir Votre Impact Jusqu\'à Présent',
+    
+    // Donor Impact Page
+    yourImpactThisMonth: 'Votre Impact Ce Mois',
+    impactHeaderText1: 'Grâce à votre générosité, les femmes et les enfants en crise ont trouvé la sécurité, la chaleur et quelqu\'un pour les écouter. Voici ce que vos',
+    impactHeaderText2: 'ont rendu possible ce mois-ci.',
+    livesTouched: 'Vies Touchées',
+    livesTouchedDescription: 'familles ont dormi en sécurité, partagé des repas chauds et commencé à guérir.',
+    shelterNights: 'Nuits d\'Hébergement',
+    shelterNightsDescription: 'Nuits de sécurité dans un environnement protégé, donnant aux familles la paix et la dignité.',
+    mealsShared: 'Repas Partagés',
+    mealsSharedDescription: 'Repas nutritifs qui apportent du réconfort et rappellent aux survivantes qu\'elles ne sont pas seules.',
+    crisisSessions: 'Séances de Crise',
+    crisisSessionsDescription: 'Soutien émotionnel immédiat au moment où quelqu\'un se sent entendu, en sécurité et soutenu.',
+    therapyHours: 'Heures de Thérapie',
+    therapyHoursDescription: 'Heures de guérison où les survivantes reconstruisent leur confiance et redécouvrent l\'espoir.',
+    everyExtraDollarDeepens: 'Chaque Dollar Supplémentaire Approfondit Votre Impact',
+    impactCTAText: 'Une autre nuit d\'hébergement, un autre repas chaud, une autre voix sur la ligne de crise. Votre soutien continu maintient ces portes ouvertes.',
+    backToDashboard: 'Retour au Tableau de Bord',
 
     // Donor Impact Page
     impactTitle: "Votre impact ce mois-ci",

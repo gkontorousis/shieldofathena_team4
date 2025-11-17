@@ -5,6 +5,7 @@ import AuthPage from './pages/AuthPage';
 import DonationPage from './pages/DonationPage';
 import ThankYouPage from './pages/ThankYouPage';
 import UserDashboard from './pages/UserDashboard';
+import Payment from './pages/Payment';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import DonorImpactPage from "./pages/DonorImpactPage";
 import { LanguageProvider } from './context/LanguageContext';
@@ -29,6 +30,7 @@ function App() {
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/donate" element={<DonationPage />} />
             <Route path="/thank-you" element={<ThankYouPage />} />
+            <Route path="/payment" element={<Payment />} />
             <Route path="/my-impact" 
             element={<ProtectedRoute> 
                 <DonorImpactPage />

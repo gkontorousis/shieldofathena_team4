@@ -115,7 +115,7 @@ function AchievementsSection() {
                         <img
                           key={imgIndex}
                           src={img}
-                          alt={`${achievement.month} impact`}
+                          alt={language === 'fr' ? `Impact ${achievement.month}` : `${achievement.month} impact`}
                           className="achievement-image"
                         />
                       ))}
@@ -157,15 +157,9 @@ function AchievementsSection() {
               key={index}
               className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
               onClick={() => goToSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
+              aria-label={language === 'fr' ? `Aller à la diapositive ${index + 1}` : `Go to slide ${index + 1}`}
             />
           ))}
-        </div>
-
-        <div className="load-more-container">
-          <button className="load-more-btn">
-            {t.loadMore}
-          </button>
         </div>
       </div>
     </section>

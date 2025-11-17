@@ -93,12 +93,14 @@ function Header({ navItems = [], showDashboardNav = false }) {
     };
   }, []);
 
+  const isLandingPage = navItems.length > 0;
+
   return (
     <header className="app-header">
       <div className="header-content">
         {/* Logo that goes to homepage */}
         <div
-          className="header-logo"
+          className="header-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}
           onClick={() => navigate('/')}
           style={{ cursor: 'pointer' }}
         >
@@ -107,6 +109,7 @@ function Header({ navItems = [], showDashboardNav = false }) {
 
         {/* Middle nav: either dashboard sections or regular nav items */}
         {showDashboardNav && user ? (
+        {isLandingPage && (
           <nav className="header-nav">
             {dashboardNavItems.map((item, index) => (
               <button
@@ -171,21 +174,31 @@ function Header({ navItems = [], showDashboardNav = false }) {
               </div>
             )}
           </div>
-
+          {isLandingPage && (
+            <>
+    
           {/* This acts as the "My Account" button on homepage when user is logged in */}
           <button
-            className="header-login-btn"
-            onClick={() => navigate(user ? '/dashboard' : '/auth')}
-          >
-            {user ? t.myAccount || 'My Account' : t.logInRegister}
-          </button>
-
+                className="header-login-btn"
+                onClick={() => navigate(user ? '/dashboard' : '/auth')}
+              >
+                {user ? t.myAccount || 'My Account' : t.logInRegister}
+              </button>
+    
           <button
             className="header-donate-btn"
             onClick={() => navigate('/donate')}
           >
-            {t.donate}
-          </button>
+                {t.donate}
+              </button>
+              <button 
+                className="header-contact-btn" 
+                onClick={() => scrollToSection('footer')}
+              >
+                {t.contactUs}
+              </button>
+            </>
+          )}
           {user && (
             <button
               className="logout-btn"

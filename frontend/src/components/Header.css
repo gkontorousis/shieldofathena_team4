@@ -9,50 +9,70 @@
   border-bottom: 1px solid rgba(164, 147, 181, 0.1);
   z-index: 1000;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+  overflow: visible;
 }
 
 .header-content {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 20px 40px;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+  overflow: visible;
 }
 
 .header-logo {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+  flex-grow: 0;
+  min-width: fit-content;
+  max-width: min(300px, 25vw);
+  margin-right: auto;
 }
 
 .header-logo .logo-container {
-  max-width: 300px;
+  max-width: 100%;
+  width: auto;
 }
 
 .header-logo .logo-image {
-  max-width: 300px !important;
+  max-width: min(300px, 25vw) !important;
   height: auto;
+  width: auto;
 }
 
 .header-nav {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
   align-items: center;
-  gap: 10px;
-  flex: 1;
-  justify-content: center;
+  gap: 8px;
+  flex: 0 1 auto;
+  min-width: fit-content;
+  margin-right: 10px;
+  justify-items: end;
+  justify-content: end;
+  max-width: calc(100% - 600px);
 }
 
 .header-nav-btn {
   background: transparent;
   color: #7a6a8b;
   border: none;
-  padding: 10px 16px;
-  font-size: 15px;
+  padding: 8px 12px;
+  font-size: 14px;
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 500;
   position: relative;
+  white-space: nowrap;
+  flex-shrink: 0;
+  flex-basis: auto;
+  min-width: fit-content;
 }
 
 .header-nav-btn:hover {
@@ -68,7 +88,13 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 8px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  min-width: fit-content;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  margin-left: auto;
 }
 
 .language-dropdown {
@@ -79,17 +105,20 @@
   background: transparent;
   color: #7a6a8b;
   border: 2px solid rgba(164, 147, 181, 0.2);
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 8px 12px;
+  font-size: 14px;
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-width: 120px;
+  gap: 6px;
+  min-width: 85px;
+  max-width: 120px;
   justify-content: space-between;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .language-dropdown-btn:hover {
@@ -119,7 +148,7 @@
   min-width: 180px;
   max-height: 400px;
   overflow-y: auto;
-  z-index: 1001;
+  z-index: 1002;
   animation: fadeInDown 0.3s ease-out;
 }
 
@@ -166,14 +195,16 @@
   background: transparent;
   color: #7a6a8b;
   border: 2px solid rgba(164, 147, 181, 0.2);
-  padding: 10px 24px;
-  font-size: 16px;
+  padding: 8px 16px;
+  font-size: 14px;
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 500;
   position: relative;
   overflow: hidden;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .header-login-btn::before {
@@ -205,8 +236,8 @@
   background: linear-gradient(135deg, #a493b5 0%, #b8a9c7 100%);
   color: white;
   border: none;
-  padding: 12px 32px;
-  font-size: 18px;
+  padding: 9px 18px;
+  font-size: 14px;
   font-weight: 600;
   border-radius: 30px;
   cursor: pointer;
@@ -215,6 +246,8 @@
   position: relative;
   overflow: hidden;
   letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .header-donate-btn::before {
@@ -253,73 +286,246 @@
   box-shadow: 0 4px 20px rgba(164, 147, 181, 0.3);
 }
 
-@media (max-width: 768px) {
-  .header-content {
-    padding: 15px 20px;
-    flex-wrap: wrap;
+.header-contact-btn {
+  background: transparent;
+  color: #7a6a8b;
+  border: 2px solid rgba(164, 147, 181, 0.2);
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.header-contact-btn:hover {
+  border-color: rgba(164, 147, 181, 0.6);
+  background: rgba(164, 147, 181, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(164, 147, 181, 0.2);
+}
+
+.header-contact-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 1200px) {
+  .header-logo {
+    max-width: min(250px, 20vw);
   }
 
-  .header-nav {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-    margin-top: 15px;
-    flex-wrap: wrap;
+  .header-logo .logo-image {
+    max-width: min(250px, 20vw) !important;
+  }
+
+  .header-content {
+    gap: 15px;
   }
 
   .header-actions {
     gap: 10px;
   }
 
-  .language-dropdown-btn {
-    min-width: 100px;
-    padding: 8px 16px;
+  .header-nav {
+    gap: 6px;
+    margin-left: 15px;
+    margin-right: 15px;
+    grid-template-columns: repeat(2, auto);
+    max-width: calc(100% - 500px);
+  }
+
+  .header-nav-btn {
+    padding: 8px 14px;
     font-size: 14px;
   }
 
+  .language-dropdown-btn {
+    min-width: 90px;
+    padding: 8px 14px;
+    font-size: 14px;
+    max-width: 130px;
+  }
+
   .header-login-btn {
-    padding: 8px 16px;
+    padding: 8px 18px;
     font-size: 14px;
   }
 
   .header-donate-btn {
-    padding: 10px 24px;
-    font-size: 16px;
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+
+  .header-contact-btn {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 968px) {
+  .header-content {
+    flex-wrap: wrap;
+    padding: 12px 15px;
+    gap: 12px;
+  }
+
+  .header-logo {
+    order: 1;
+    max-width: min(200px, 30vw);
+    margin-right: 0;
+  }
+
+  .header-logo .logo-image {
+    max-width: min(200px, 30vw) !important;
+  }
+
+  .header-nav {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    justify-items: center;
+    margin-top: 12px;
+    margin-left: 0;
+    margin-right: 0;
+    gap: 6px;
+    grid-template-columns: repeat(2, auto);
+    max-width: 100%;
+  }
+
+  .header-actions {
+    order: 3;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+    margin-top: 12px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    padding: 12px 15px;
+    gap: 10px;
+  }
+
+  .header-logo {
+    max-width: min(180px, 35vw);
+  }
+
+  .header-logo .logo-image {
+    max-width: min(180px, 35vw) !important;
+  }
+
+  .header-nav {
+    margin-top: 10px;
+    gap: 4px;
+    margin-left: 0;
+    margin-right: 0;
+    grid-template-columns: repeat(2, auto);
+    justify-items: center;
+    max-width: 100%;
+  }
+
+  .header-nav-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .header-actions {
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .language-dropdown-btn {
+    min-width: 85px;
+    padding: 6px 12px;
+    font-size: 13px;
+    max-width: 120px;
+  }
+
+  .header-login-btn {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+
+  .header-donate-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .header-contact-btn {
+    padding: 6px 14px;
+    font-size: 13px;
   }
 }
 
 @media (max-width: 480px) {
   .header-content {
-    padding: 12px 15px;
-  }
-
-  .header-nav {
-    gap: 5px;
-  }
-
-  .header-nav-btn {
-    padding: 8px 12px;
-    font-size: 13px;
-  }
-
-  .header-actions {
+    padding: 10px 12px;
     gap: 8px;
   }
 
-  .language-dropdown-btn {
-    min-width: 90px;
-    padding: 6px 12px;
+  .header-logo {
+    max-width: min(150px, 40vw);
+  }
+
+  .header-logo .logo-image {
+    max-width: min(150px, 40vw) !important;
+  }
+
+  .header-nav {
+    gap: 4px;
+    margin-top: 8px;
+    margin-left: 0;
+    margin-right: 0;
+    grid-template-columns: repeat(2, auto);
+    justify-items: center;
+    max-width: 100%;
+  }
+
+  .header-nav-btn {
+    padding: 6px 10px;
     font-size: 12px;
+  }
+
+  .header-actions {
+    gap: 5px;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+
+  .language-dropdown-btn {
+    min-width: 80px;
+    padding: 6px 10px;
+    font-size: 12px;
+    max-width: 110px;
   }
 
   .header-login-btn {
     padding: 6px 12px;
     font-size: 12px;
+    flex: 1;
+    min-width: 0;
   }
 
   .header-donate-btn {
-    padding: 8px 16px;
-    font-size: 14px;
+    padding: 8px 14px;
+    font-size: 13px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .header-contact-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    flex: 1;
+    min-width: 0;
   }
 }
 

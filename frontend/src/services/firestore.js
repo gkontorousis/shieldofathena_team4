@@ -97,8 +97,7 @@ export const getEvents = async () => {
     const events = querySnapshot.docs
       .map(doc => ({
         id: doc.id,
-        ...doc.data(),
-        date_time: doc.data().date_time?.toDate() || new Date()
+        ...doc.data()
       }))
       .filter(event => event.date_time > now)
       .sort((a, b) => a.date_time - b.date_time);

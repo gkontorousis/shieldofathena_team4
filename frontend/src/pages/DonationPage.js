@@ -4,6 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations/translations';
 import { createDonation } from '../services/firestore';
+import PaymentForm from '../components/PaymentForm';
+import Header from '../components/Header';
 import './DonationPage.css';
 
 function DonationPage() {
@@ -14,6 +16,7 @@ function DonationPage() {
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState('');
   const [recurring, setRecurring] = useState(false);
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -50,7 +53,7 @@ function DonationPage() {
     },
   ], [t]);
 
-  const handleDonate = async () => {
+  const handleDonate = () => {
     const amount = selectedAmount || parseFloat(customAmount);
     
     if (!amount || amount <= 0) {
@@ -58,13 +61,24 @@ function DonationPage() {
       return;
     }
 
+    setError('');
+    setShowPaymentForm(true);
+  };
+
+  const handlePaymentSubmit = async (paymentData) => {
     setLoading(true);
     setError('');
 
     try {
-      await createDonation(user?.uid || null, amount, recurring);
+      // TODO: Integrate with actual payment processor (Stripe, PayPal, etc.)
+      // For now, we'll simulate payment processing
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
+      
+      // After successful payment, create donation record
+      await createDonation(user?.uid || null, paymentData.amount, recurring);
 
       // Navigate to thank you page with donation details
+      const amount = selectedAmount || parseFloat(customAmount);
       navigate('/thank-you', {
         state: {
           donation: {
@@ -82,46 +96,40 @@ function DonationPage() {
     }
   };
 
+  const handlePaymentCancel = () => {
+    setShowPaymentForm(false);
+    setError('');
+  };
+
+  const amount = selectedAmount || parseFloat(customAmount);
+  const donationDescription = selectedAmount
+    ? donationAmounts.find((d) => d.amount === selectedAmount)?.description
+    : amount ? `A donation of $${amount}` : '';
+
+  if (showPaymentForm && amount > 0) {
+    return (
+      <div className="donation-page">
+        <div className="donation-container payment-container">
+          <PaymentForm
+            amount={amount}
+            title="Complete Your Donation"
+            description={donationDescription}
+            onSubmit={handlePaymentSubmit}
+            onCancel={handlePaymentCancel}
+            loading={loading}
+            error={error}
+            showBillingInfo={true}
+            paymentType="donation"
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="donation-page">
+      <Header navItems={[]} />
       <div className="donation-container">
-        <h1>{t.makeADonation}</h1>
-        <p className="donation-subtitle">
-          {t.donationSubtitle}
-        </p>
-
-        {!user && (
-          <div className="login-benefits">
-            <h3>{t.benefitsOfCreatingAccount}</h3>
-            <div className="benefit-item">
-              <img
-                src="/kids_drawing.jpg"
-                alt="Child's drawing"
-                className="benefit-image"
-              />
-              <p>
-                <strong>{t.donationBenefit1}</strong>
-              </p>
-            </div>
-            <div className="benefit-item">
-              <img
-                src="/dinner_table.jpg"
-                alt="Donor community event"
-                className="benefit-image"
-              />
-              <p>
-                <strong>{t.donationBenefit2}</strong>
-              </p>
-            </div>
-            <button
-              className="create-account-btn"
-              onClick={() => navigate('/auth')}
-            >
-              {t.createAccount}
-            </button>
-          </div>
-        )}
-
         <div className="donation-amounts">
           <h2>{t.chooseDonationAmount}</h2>
           <div className="amount-grid">
@@ -179,11 +187,43 @@ function DonationPage() {
           <button
             className="donate-button"
             onClick={handleDonate}
-            disabled={loading}
+            disabled={loading || !amount || amount <= 0}
           >
             {loading ? t.processing : t.donateNow}
           </button>
         </div>
+
+        {!user && (
+          <div className="login-benefits">
+            <h3>{t.benefitsOfCreatingAccount}</h3>
+            <div className="benefit-item">
+              <img
+                src="/kids_drawing.jpg"
+                alt="Child's drawing"
+                className="benefit-image"
+              />
+              <p>
+                <strong>{t.donationBenefit1}</strong>
+              </p>
+            </div>
+            <div className="benefit-item">
+              <img
+                src="/dinner_table.jpg"
+                alt="Donor community event"
+                className="benefit-image"
+              />
+              <p>
+                <strong>{t.donationBenefit2}</strong>
+              </p>
+            </div>
+            <button
+              className="create-account-btn"
+              onClick={() => navigate('/auth')}
+            >
+              {t.createAccount}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

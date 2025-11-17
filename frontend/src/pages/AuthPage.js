@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations/translations';
+import Header from '../components/Header';
 import './AuthPage.css';
 
 function AuthPage() {
@@ -12,10 +13,17 @@ function AuthPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, register, loginWithGoogle, loginWithFacebook } = useAuth();
+  const { login, register, loginWithGoogle, loginWithFacebook, user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { language } = useLanguage();
   const t = translations[language] || translations.en;
+
+  // Redirect if already authenticated (e.g., after OAuth redirect)
+  useEffect(() => {
+    if (!authLoading && user) {
+      navigate('/dashboard');
+    }
+  }, [user, authLoading, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +41,14 @@ function AuthPage() {
       if (result.success) {
         navigate('/dashboard');
       } else {
-        setError(result.error);
+        console.log(result.error);
+        if (result.error.includes('auth/invalid-credential')) {
+          setError(t.wrongEmailOrPassword);
+        } else if (result.error.includes('auth/email-already-in-use')) {
+          setError(t.emailAlreadyInUse);
+        } else {
+          setError(result.error);
+        }
       }
     } catch (err) {
       setError(t.anUnexpectedErrorOccurred);
@@ -44,6 +59,7 @@ function AuthPage() {
 
   return (
     <div className="auth-page">
+      <Header navItems={[]} />
       <div className="auth-container">
         <h1>{isLogin ? t.logIn : t.signUp}</h1>
         
@@ -113,9 +129,11 @@ function AuthPage() {
                 try {
                   const result = await loginWithGoogle();
                   if (result.success) {
+                    setLoading(false);
                     navigate('/dashboard');
                   } else {
                     setError(result.error);
+                    setLoading(false);
                   }
                 } catch (err) {
                   setError(t.anUnexpectedErrorOccurred);
@@ -135,9 +153,11 @@ function AuthPage() {
                 try {
                   const result = await loginWithFacebook();
                   if (result.success) {
+                    setLoading(false);
                     navigate('/dashboard');
                   } else {
                     setError(result.error);
+                    setLoading(false);
                   }
                 } catch (err) {
                   setError(t.anUnexpectedErrorOccurred);
