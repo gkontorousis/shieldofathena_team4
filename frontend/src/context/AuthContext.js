@@ -34,7 +34,8 @@ export function AuthProvider({ children }) {
       await setDoc(doc(db, 'users', user.uid), {
         name: name,
         email: email,
-        createdAt: Timestamp.now()
+        createdAt: Timestamp.now(),
+        events: []
       });
       
       return { success: true };
@@ -70,7 +71,8 @@ export function AuthProvider({ children }) {
         await setDoc(doc(db, 'users', user.uid), {
           name: user.displayName || 'User',
           email: user.email,
-          createdAt: Timestamp.now()
+          createdAt: Timestamp.now(),
+          events: []
         });
       }
       
@@ -95,7 +97,8 @@ export function AuthProvider({ children }) {
         await setDoc(doc(db, 'users', user.uid), {
           name: user.displayName || 'User',
           email: user.email,
-          createdAt: Timestamp.now()
+          createdAt: Timestamp.now(),
+          events: []
         });
       }
       
