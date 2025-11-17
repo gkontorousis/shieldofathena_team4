@@ -8,20 +8,6 @@ import PaymentForm from '../components/PaymentForm';
 import { getUserDonations, getEvents, registerForEvent, getUserData } from '../services/firestore';
 import Header from '../components/Header';
 import './UserDashboard.css';
-import { 
-  collection, 
-  addDoc, 
-  query, 
-  where, 
-  getDocs, 
-  getDoc,
-  doc,
-  setDoc,
-  updateDoc,
-  increment,
-  Timestamp
-} from 'firebase/firestore';
-import { db } from '../firebase/config';
 
 function UserDashboard() {
   const { user, logout } = useAuth();
@@ -32,7 +18,10 @@ function UserDashboard() {
   const [events, setEvents] = useState([]);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [registeringEvent, setRegisteringEvent] = useState(null);
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [paymentLoading, setPaymentLoading] = useState(false);
+  const [paymentError, setPaymentError] = useState('');
 
   const fetchUserData = useCallback(async () => {
     if (!user) return;
@@ -74,22 +63,50 @@ function UserDashboard() {
   }, [user]);
 
 
-  const handleEventRegister = async (eventId, eventPrice) => {
+  const handleEventRegisterClick = (event) => {
     if (!user) {
       alert(t.pleaseLogInToRegister);
       return;
     }
-    setRegisteringEvent(eventId);
+    setSelectedEvent(event);
+    setShowPaymentForm(true);
+    setPaymentError('');
+  };
+
+  const handlePaymentSubmit = async (paymentData) => {
+    if (!selectedEvent || !user) return;
+
+    setPaymentLoading(true);
+    setPaymentError('');
+
     try {
-      await registerForEvent(user.uid, eventId, eventPrice);
-      alert(t.successfullyRegistered);
-      fetchEvents(); // Refresh events to update places available
-      fetchDonations(); // Refresh donations to show the registration payment
-    } catch (error) {
-      alert(error.message || t.failedToRegister);
-    } finally {
-      setRegisteringEvent(null);
+      // TODO: Integrate with actual payment processor (Stripe, PayPal, etc.)
+      // For now, we'll simulate payment processing
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
+      
+      // After successful payment, register for event
+      await registerForEvent(user.uid, selectedEvent.id, selectedEvent.price || 0);
+      
+      // Refresh events, donations, and user data to get updated registered events
+      await Promise.all([
+        fetchEvents(),
+        fetchDonations(),
+        fetchUserData()
+      ]);
+      
+      // Close payment form (no alert - status shown on card)
+      setShowPaymentForm(false);
+      setSelectedEvent(null);
+    } catch (err) {
+      setPaymentError(err.message || t.failedToRegister);
+      setPaymentLoading(false);
     }
+  };
+
+  const handlePaymentCancel = () => {
+    setShowPaymentForm(false);
+    setSelectedEvent(null);
+    setPaymentError('');
   };
 
   const totalDonated = donations.reduce((sum, d) => sum + d.amount, 0);
@@ -129,6 +146,28 @@ function UserDashboard() {
     },
   ];
 
+  // Show payment form when an event is selected
+  if (showPaymentForm && selectedEvent) {
+    return (
+      <div className="user-dashboard">
+        <Header navItems={[]} />
+        <div className="dashboard-content" style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
+          <PaymentForm
+            amount={selectedEvent.price || 0}
+            title={`Register for ${selectedEvent.theme || selectedEvent.title || 'Event'}`}
+            description={selectedEvent.description || `Complete your registration for ${selectedEvent.theme || selectedEvent.title || 'this event'}`}
+            onSubmit={handlePaymentSubmit}
+            onCancel={handlePaymentCancel}
+            loading={paymentLoading}
+            error={paymentError}
+            showBillingInfo={true}
+            paymentType="event"
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="user-dashboard">
       <Header navItems={[]} />
@@ -142,9 +181,6 @@ function UserDashboard() {
             className="donate-btn" 
             onClick={() => navigate('/my-impact')}>
             {t.viewYourImpactSoFar}
-          </button>
-          <button className="logout-btn" onClick={() => {logout(); navigate('/')}}>
-            {t.logout}
           </button>
         </div>
       </div>
@@ -214,6 +250,7 @@ function UserDashboard() {
 
       const availablePlaces = event.places_available ?? 0;
       const isFull = availablePlaces <= 0;
+      const isRegistered = userData?.events?.includes(event.id) || false;
 
       return (
         <div key={event.id} className="event-card">
@@ -232,25 +269,27 @@ function UserDashboard() {
             <p><strong>Price:</strong> {event.price != null ? `$${event.price}` : "Price not available"}</p>
           </div>
 
-          {/* Registration Button */}
-          {isFull ? (
+          {/* Registration Status */}
+          {isRegistered ? (
+            <div className="registered-badge" style={{
+              padding: '12px',
+              backgroundColor: '#4CAF50',
+              color: 'white',
+              borderRadius: '4px',
+              textAlign: 'center',
+              fontWeight: 'bold',
+              marginTop: '10px'
+            }}>
+              ✓ Registered
+            </div>
+          ) : isFull ? (
             <button className="register-btn" disabled>
               Registration Full
             </button>
           ) : (
             <button
               className="register-btn"
-              onClick={() =>
-                navigate('/PaymentForm', {
-                  state: {
-                    amount: event.price,
-                    title: event.theme,
-                    description: `Register for ${event.theme}`,
-                    paymentType: 'event',
-                    eventId: event.id
-                  }
-                })
-              }
+              onClick={() => handleEventRegisterClick(event)}
             >
               Click here to register and pay
             </button>
