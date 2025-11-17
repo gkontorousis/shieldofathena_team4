@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { useAuth } from '../context/AuthContext';
 import { translations } from '../translations/translations';
 import ReactPlayer from 'react-player';
 import './LandingPage.css';
@@ -11,6 +12,8 @@ import Footer from '../components/Footer';
 
 
 function LandingPage() {
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const { language } = useLanguage();
   const t = translations[language] || translations.en;
   const englishVideo = "https://youtu.be/-3sc4QkwaxE";
@@ -75,6 +78,17 @@ function LandingPage() {
             {t.missionText}
           </p>
         </div>
+
+        {user && (
+          <div className="video-overlay-button">
+            <button 
+              className="my-account-btn"
+              onClick={() => navigate('/dashboard')}
+            >
+              {t.myAccount || 'My Account'}
+            </button>
+          </div>
+        )}
       </section>
 
       <section id="mystery-section" className="pixelated-section">

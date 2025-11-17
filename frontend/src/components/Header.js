@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations/translations';
 import Logo from './Logo';
 import './Header.css';
 
-function Header({ navItems = [] }) {
+function Header({ navItems = [], showDashboardNav = false }) {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const location = useLocation();
+  const { user, logout } = useAuth();
   const { language, setLanguage } = useLanguage();
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
   const languageDropdownRef = useRef(null);
@@ -19,32 +20,22 @@ function Header({ navItems = [] }) {
     if (element) {
       element.scrollIntoView({
         behavior: 'smooth',
-        block: 'start'
+        block: 'start',
       });
-    } else {
-      // If element not found, try navigating to home page first
-      if (window.location.pathname !== '/') {
-        navigate('/');
-        setTimeout(() => {
-          const retryElement = document.getElementById(sectionId);
-          if (retryElement) {
-            retryElement.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        }, 100);
-      } else {
-        setTimeout(() => {
-          const retryElement = document.getElementById(sectionId);
-          if (retryElement) {
-            retryElement.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        }, 100);
-      }
+      return;
+    }
+    // If element not found, try navigating to dashboard first then retry
+    if (window.location.pathname !== '/dashboard') {
+      navigate('/dashboard');
+      setTimeout(() => {
+        const retryElement = document.getElementById(sectionId);
+        if (retryElement) {
+          retryElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+      }, 200);
     }
   };
 
@@ -62,11 +53,36 @@ function Header({ navItems = [] }) {
     { code: 'ur', name: 'اردو' },
   ];
 
-  const selectedLanguage = languages.find(lang => lang.code === language) || languages[0];
+  const selectedLanguage =
+    languages.find((lang) => lang.code === language) || languages[0];
+
+  // These are the 3 “restricted” sections in the My Account / Dashboard view
+  const dashboardNavItems = [
+    {
+      label: t.yourDonationHistory || t.donationHistory || 'Donation history',
+      sectionId: 'donation-history',
+    },
+    {
+      label:
+        t.fundraisingCommunityEvents ||
+        t.communityEvents ||
+        'Community events',
+      sectionId: 'community-events',
+    },
+    {
+      // The requirement calls this "Personal updates", but your text can be more descriptive
+      label:
+        t.updatesFromThoseWeHelped || t.personalUpdates || 'Personal updates',
+      sectionId: 'personal-updates',
+    },
+  ];
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (languageDropdownRef.current && !languageDropdownRef.current.contains(event.target)) {
+      if (
+        languageDropdownRef.current &&
+        !languageDropdownRef.current.contains(event.target)
+      ) {
         setLanguageDropdownOpen(false);
       }
     };
@@ -82,30 +98,54 @@ function Header({ navItems = [] }) {
   return (
     <header className="app-header">
       <div className="header-content">
-        <div className="header-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+        {/* Logo that goes to homepage */}
+        <div
+          className="header-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}
+          onClick={() => navigate('/')}
+          style={{ cursor: 'pointer' }}
+        >
           <Logo />
         </div>
+
+        {/* Middle nav: either dashboard sections or regular nav items */}
+        {showDashboardNav && user ? (
         {isLandingPage && (
           <nav className="header-nav">
-            {navItems.map((item, index) => (
+            {dashboardNavItems.map((item, index) => (
               <button
                 key={index}
                 className="header-nav-btn"
-                onClick={() => {
-                  if (item.sectionId) {
-                    scrollToSection(item.sectionId);
-                  } else if (item.path) {
-                    navigate(item.path);
-                  } else if (item.onClick) {
-                    item.onClick();
-                  }
-                }}
+                onClick={() => scrollToSection(item.sectionId)}
               >
                 {item.label}
               </button>
             ))}
           </nav>
+        ) : (
+          navItems.length > 0 && (
+            <nav className="header-nav">
+              {navItems.map((item, index) => (
+                <button
+                  key={index}
+                  className="header-nav-btn"
+                  onClick={() => {
+                    if (item.sectionId) {
+                      scrollToSection(item.sectionId);
+                    } else if (item.path) {
+                      navigate(item.path);
+                    } else if (item.onClick) {
+                      item.onClick();
+                    }
+                  }}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          )
         )}
+
+        {/* Right actions: language + My Account / Login + Donate */}
         <div className="header-actions">
           <div className="language-dropdown" ref={languageDropdownRef}>
             <button
@@ -120,7 +160,9 @@ function Header({ navItems = [] }) {
                 {languages.map((lang) => (
                   <button
                     key={lang.code}
-                    className={`language-option ${selectedLanguage.code === lang.code ? 'active' : ''}`}
+                    className={`language-option ${
+                      selectedLanguage.code === lang.code ? 'active' : ''
+                    }`}
                     onClick={() => {
                       setLanguage(lang.code);
                       setLanguageDropdownOpen(false);
@@ -134,13 +176,19 @@ function Header({ navItems = [] }) {
           </div>
           {isLandingPage && (
             <>
-              <button
+    
+          {/* This acts as the "My Account" button on homepage when user is logged in */}
+          <button
                 className="header-login-btn"
                 onClick={() => navigate(user ? '/dashboard' : '/auth')}
               >
-                {user ? t.dashboard : t.logInRegister}
+                {user ? t.myAccount || 'My Account' : t.logInRegister}
               </button>
-              <button className="header-donate-btn" onClick={() => navigate('/donate')}>
+    
+          <button
+            className="header-donate-btn"
+            onClick={() => navigate('/donate')}
+          >
                 {t.donate}
               </button>
               <button 
@@ -151,6 +199,14 @@ function Header({ navItems = [] }) {
               </button>
             </>
           )}
+          {user && (
+            <button
+              className="logout-btn"
+              onClick={logout}
+            >
+              {t.logout}
+            </button>
+          )}
         </div>
       </div>
     </header>
@@ -158,4 +214,3 @@ function Header({ navItems = [] }) {
 }
 
 export default Header;
-

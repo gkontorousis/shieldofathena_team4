@@ -173,6 +173,51 @@ export const translations = {
     everyExtraDollarDeepens: 'Every Extra Dollar Deepens Your Impact',
     impactCTAText: 'Another night of shelter, another warm meal, another voice on the crisis line. Your continued support keeps these doors open.',
     backToDashboard: 'Back to Dashboard',
+
+    // Donor Impact Page
+    impactTitle: "Your Impact This Month",
+  impactLoading: "Loading your impact...",
+  impactNoDonationYet:
+    "You haven’t made a donation yet, but your first gift can create real safety and hope.",
+  impactStartTitle: "Start Your Impact",
+  impactStartDescription:
+    "The very first donation can mean a night of shelter, a warm meal, or someone picking up the crisis line when it matters most.",
+  impactStartButton: "Make My First Donation",
+  backToMyAccount: "Back to My Account",
+
+  impactIntroLine1:
+    "Because of your generosity, women and children in crisis found safety, warmth, and someone to listen. Here is what your",
+  impactIntroLine2: "has made possible this month.",
+
+  livesTouchedTitle: "Lives Touched",
+  livesTouchedDescription:
+    "Families slept safely, shared warm meals, and began to heal.",
+
+  shelterNightsTitle: "Shelter Nights",
+  shelterNightsDescription:
+    "Nights of safety in a protected environment, giving families peace and dignity.",
+  shelterNightsAlt: "A safe and warm shelter room",
+
+  mealsSharedTitle: "Meals Shared",
+  mealsSharedDescription:
+    "Nutritious meals that bring comfort and remind survivors they are not alone.",
+  mealsSharedAlt: "Warm meal served to someone in need",
+
+  crisisSessionsTitle: "Crisis Sessions",
+  crisisSessionsDescription:
+    "Immediate emotional support at the moment someone feels heard, safe, and supported.",
+  crisisSessionsAlt: "Crisis counselor talking to a survivor",
+
+  therapyHoursTitle: "Therapy Hours",
+  therapyHoursDescription:
+    "Hours of healing where survivors rebuild confidence and rediscover hope.",
+  therapyHoursAlt: "Therapy session fostering healing and growth",
+
+  impactCtaTitle: "Every Extra Dollar Deepens Your Impact",
+  impactCtaDescription:
+    "Another night of shelter, another warm meal, another voice on the crisis line. Your continued support keeps these doors open.",
+
+  goToSlide: "Go to slide",
   },
   fr: {
     // Landing Page
@@ -348,6 +393,51 @@ export const translations = {
     everyExtraDollarDeepens: 'Chaque Dollar Supplémentaire Approfondit Votre Impact',
     impactCTAText: 'Une autre nuit d\'hébergement, un autre repas chaud, une autre voix sur la ligne de crise. Votre soutien continu maintient ces portes ouvertes.',
     backToDashboard: 'Retour au Tableau de Bord',
+
+    // Donor Impact Page
+    impactTitle: "Votre impact ce mois-ci",
+  impactLoading: "Chargement de votre impact...",
+  impactNoDonationYet:
+    "Vous n’avez pas encore fait de don, mais votre premier geste peut déjà apporter de la sécurité et de l’espoir.",
+  impactStartTitle: "Commencez à agir",
+  impactStartDescription:
+    "Un premier don peut offrir une nuit à l’abri, un repas chaud ou une oreille attentive au bout de la ligne de crise.",
+  impactStartButton: "Faire mon premier don",
+  backToMyAccount: "Retour à mon compte",
+
+  impactIntroLine1:
+    "Grâce à votre générosité, des femmes et des enfants en situation de crise ont trouvé de la sécurité, de la chaleur et une personne à l’écoute. Voici ce que votre don de",
+  impactIntroLine2: "a rendu possible ce mois-ci.",
+
+  livesTouchedTitle: "Vies touchées",
+  livesTouchedDescription:
+    "Des familles ont dormi en sécurité, partagé des repas chauds et commencé à se reconstruire.",
+
+  shelterNightsTitle: "Nuits d’hébergement",
+  shelterNightsDescription:
+    "Des nuits passées dans un environnement protégé, offrant paix et dignité aux familles.",
+  shelterNightsAlt: "Une chambre d’hébergement sûre et chaleureuse",
+
+  mealsSharedTitle: "Repas partagés",
+  mealsSharedDescription:
+    "Des repas nourrissants qui apportent du réconfort et rappellent aux survivant·e·s qu’ils ne sont pas seuls.",
+  mealsSharedAlt: "Un repas chaud servi à une personne dans le besoin",
+
+  crisisSessionsTitle: "Séances de crise",
+  crisisSessionsDescription:
+    "Un soutien émotionnel immédiat, au moment précis où quelqu’un a besoin de se sentir entendu et en sécurité.",
+  crisisSessionsAlt: "Un intervenant en crise parlant avec une survivante",
+
+  therapyHoursTitle: "Heures de thérapie",
+  therapyHoursDescription:
+    "Des heures de guérison pour retrouver confiance en soi et reconstruire l’espoir.",
+  therapyHoursAlt: "Une séance de thérapie favorisant la guérison et la croissance",
+
+  impactCtaTitle: "Chaque dollar supplémentaire renforce votre impact",
+  impactCtaDescription:
+    "Une nuit de plus à l’abri, un repas chaud de plus, une autre voix au bout de la ligne de crise. Votre soutien continu garde ces portes ouvertes.",
+
+  goToSlide: "Aller à la diapositive",
   },
 };
 
