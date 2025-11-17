@@ -9,7 +9,8 @@ import {
   setDoc,
   updateDoc,
   increment,
-  Timestamp
+  Timestamp,
+  arrayUnion
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
 
@@ -161,10 +162,26 @@ export const registerForEvent = async (userId, eventId, eventPrice) => {
       throw new Error('No places available');
     }
     
-    await createDonation(userId, eventPrice, false);
+    // Update event places available
     await updateDoc(eventRef, {
       places_available: increment(-1)
     });
+    
+    // Add event ID to user's registered events array
+    const userRef = doc(db, 'users', userId);
+    const userDoc = await getDoc(userRef);
+    
+    if (userDoc.exists()) {
+      // User document exists, add event to events array
+      await updateDoc(userRef, {
+        events: arrayUnion(eventId)
+      });
+    } else {
+      // User document doesn't exist, create it with events array
+      await setDoc(userRef, {
+        events: [eventId]
+      }, { merge: true });
+    }
     
     return { success: true, event_id: eventId };
   } catch (error) {

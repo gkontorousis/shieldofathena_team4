@@ -199,8 +199,8 @@ function Header({ navItems = [], showDashboardNav = false }) {
           )}
           {user && (
             <button
-              className="logout-btn"
-              onClick={logout}
+              className="header-login-btn"
+              onClick={() => {logout(); navigate('/')}}
             >
               {t.logout}
             </button>
